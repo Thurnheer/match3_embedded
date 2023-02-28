@@ -20,9 +20,9 @@ namespace match3 {
 const auto show_board = [](const board& b, ianimations& a, view& v,
                            const config c) {
   using namespace std::chrono_literals;
-  a.queue_animation([b, c, &v] {
+  a.queue_animation([&b, c, &v] {
     ranges::for_each(
-        ranges::view::ints | ranges::view::take(c.board_width * c.board_height),
+        ranges::views::ints | ranges::views::take(c.board_width * c.board_height),
         [b, c, &v](auto i) {
           v.set_grid(i % c.board_width, i / c.board_width, b[i]);
         });

@@ -21,10 +21,10 @@ const auto find_matches = [](const board& b, const auto& m, selected& s) {
   assert(m.arity >= 0);
   auto arity = m.arity;
   while (arity--) {
-    m.matches |= ranges::action::push_back(b.match(s.back()));
+    m.matches |= ranges::actions::push_back(b.match(s.back()));
     s.pop_back();
   }
-  m.matches |= ranges::action::sort | ranges::action::unique;
+  m.matches |= ranges::actions::sort | ranges::actions::unique;
 };
 
 }  // match3

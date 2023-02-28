@@ -33,7 +33,7 @@ class animations : public ianimations {
     const auto now = std::chrono::duration_cast<std::chrono::milliseconds>(
         std::chrono::system_clock::now().time_since_epoch());
 
-    ranges::for_each(animations_ | ranges::view::take(in_parallel),
+    ranges::for_each(animations_ | ranges::views::take(in_parallel),
                      [&](auto& a) {
                        a.start = a.start == 0ms ? now : a.start;
                        a.animate();

@@ -20,6 +20,7 @@
 #include <range/v3/view/stride.hpp>
 #include <range/v3/view/take.hpp>
 #include <range/v3/view/transform.hpp>
+#include <range/v3/range/conversion.hpp>
 #include "config.hpp"
 
 namespace match3 {
@@ -46,8 +47,8 @@ namespace board_logic {
  * @return row view
  */
 const auto row = [](auto&& view, auto n, auto width) {
-  return view | ranges::view::drop(width * n) |
-         ranges::view::take(width);  // or slice
+  return view | ranges::views::drop(width * n) |
+         ranges::views::take(width);  // or slice
 };
 
 /**
@@ -70,7 +71,7 @@ const auto row = [](auto&& view, auto n, auto width) {
  * @return column view
  */
 const auto col = [](auto&& view, auto n, auto width) {
-  return view | ranges::view::drop(n) | ranges::view::stride(width);
+  return view | ranges::views::drop(n) | ranges::views::stride(width);
 };
 
 /**
@@ -94,11 +95,11 @@ const auto col = [](auto&& view, auto n, auto width) {
 const auto match_n = [](auto&& view, auto color,
                         const int max_match_length = 3) {
   const auto&& matches =
-      ranges::view::ints |
-      ranges::view::take(ranges::size(view) - max_match_length + 1) |
-      ranges::view::transform([=](auto i) {
-        return ranges::count(view | ranges::view::drop(i) |
-                                 ranges::view::take(max_match_length),
+      ranges::views::ints |
+      ranges::views::take(ranges::size(view) - max_match_length + 1) |
+      ranges::views::transform([=](auto i) {
+        return ranges::count(view | ranges::views::drop(i) |
+                                 ranges::views::take(max_match_length),
                              color) == max_match_length;
       });
 
@@ -183,15 +184,15 @@ const auto match = [](auto&& view, auto n, auto width) {
   const auto match_r = match_n(row(view, y, width), color);
   const auto match_c = match_n(col(view, x, width), color);
   const auto get_positions = [](auto length, auto expr) {
-    return ranges::view::ints | ranges::view::take(length) |
-           ranges::view::transform(expr);
+    return ranges::views::ints | ranges::views::take(length) |
+           ranges::views::transform(expr);
   };
-  std::vector<decltype(n)> result = ranges::view::concat(
+  std::vector<decltype(n)> result = ranges::views::concat(
       get_positions(match_r.length,
                     [=](auto i) { return y * width + match_r.begin + i; }),
       get_positions(match_c.length,
-                    [=](auto i) { return (match_c.begin + i) * width + x; }));
-  result |= ranges::action::sort | ranges::action::unique;
+                    [=](auto i) { return (match_c.begin + i) * width + x; })) | ranges::to<std::vector<decltype(n)>>();
+  result |= ranges::actions::sort | ranges::actions::unique;
   return result;
 };
 
@@ -216,7 +217,7 @@ const auto match = [](auto&& view, auto n, auto width) {
  */
 const auto scroll = [](auto&& view, auto n, auto width) {
   const auto&& c =
-      col(view, n % width, width) | ranges::view::take(n / width + 1);
+      col(view, n % width, width) | ranges::views::take(n / width + 1);
   auto begin = ranges::begin(c);
   ranges::advance(begin, n / width);
   ranges::rotate(c, begin);
@@ -228,8 +229,9 @@ class board {
  public:
   using color_t = int;
 
-  board(const std::vector<color_t>& grids, const config c)
-      : grids(grids), width(c.board_width) {}
+  board(const config c, const std::vector<color_t> grids_)
+      : grids(grids_.begin(), grids_.end()), width(c.board_width) {
+      }
 
   void swipe(const int p1, const int p2) { std::swap(grids[p1], grids[p2]); }
 

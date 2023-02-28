@@ -31,7 +31,16 @@ auto configuration = []() {
              .max_moves = 10}
     )
 
-  , di::bind<board::color_t[]>.to({
+  , di::bind<board>()(
+      config{.win_title = "match3",
+             .win_width = 320,
+             .win_height = 480,
+             .board_width = 7,
+             .board_height = 10,
+             .board_colors = 5,
+             .max_moves = 10}
+
+  , std::vector{
       3,5,1,4,3,2,2,
       1,1,4,2,5,1,3,
       5,3,5,4,5,3,2,

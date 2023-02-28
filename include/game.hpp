@@ -8,6 +8,7 @@
 #pragma once
 
 #include "controller/player.hpp"
+#include <queue>
 
 namespace sml = boost::sml;
 
@@ -15,7 +16,7 @@ namespace match3 {
 
 class game {
  public:
-  explicit game(sml::sm<player>& c) : player_(c) {}
+  explicit game(sml::sm<player, sml::defer_queue<std::deque>, sml::process_queue<std::queue>>& c) : player_(c) {}
 
   void play() {
     EM(emscripten_set_main_loop_arg(play_impl,
@@ -24,7 +25,7 @@ class game {
   }
 
   static void play_impl(void* c) {
-    auto& player_ = *reinterpret_cast<sml::sm<player>*>(c);
+    auto& player_ = *reinterpret_cast<sml::sm<player, sml::defer_queue<std::deque>, sml::process_queue<std::queue>>*>(c);
     do {
       auto dispatch_event =
           sml::utility::make_dispatch_table<SDL_Event, SDL_QUIT,
@@ -38,7 +39,7 @@ class game {
   }
 
  private:
-  sml::sm<player>& player_;
+  sml::sm<player, sml::defer_queue<std::deque>, sml::process_queue<std::queue>>& player_;
 };
 
 }  // match3

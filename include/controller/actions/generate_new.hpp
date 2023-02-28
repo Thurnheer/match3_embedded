@@ -26,14 +26,14 @@ namespace match3 {
 const auto generate_new = [](board& b, selected& s, const config c,
                              randomize r) {
   auto&& grids =
-      ranges::view::ints | ranges::view::take(c.board_width * c.board_height);
+      ranges::views::ints | ranges::views::take(c.board_width * c.board_height);
 
   ranges::for_each(
-      grids | ranges::view::remove_if([&b](auto i) { return b[i]; }),
+      grids | ranges::views::remove_if([&b](auto i) { return b[i]; }),
       [&b, &r, &c](auto i) { b.update(i, r(1, c.board_colors)); });
 
-  s |= ranges::action::push_front(grids) | ranges::action::sort |
-       ranges::action::unique;
+  s |= ranges::actions::push_front(grids) | ranges::actions::sort |
+       ranges::actions::unique;
 };
 
 }  // match3
