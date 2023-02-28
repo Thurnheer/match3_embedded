@@ -22,7 +22,7 @@ const auto reset = [](config c, board original, board& b, points& p, moves& m,
                       view& v) {
   b = original;
   p = {};
-  m = c.max_moves;
+  m = static_cast<short>(c.max_moves);
   v.clear();
   v.update();
 };

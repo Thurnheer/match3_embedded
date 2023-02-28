@@ -56,7 +56,7 @@ struct player {
          "second item"_s    + event<up>   / drop_item                                            = "first item"_s,
          "match items"_s                  [ is_swap_items_winning ] / (
                                             [](moves& m) {--m;}, show_moves,
-                                            process(matches{.arity=2})
+                                            process(matches{.arity=2, .matches{}})
                                           )                                                      = "play"_s.sm<switcher>(),
          "match items"_s                  / (swap_items, show_swap, clear_selected)              = "first item"_s,
          "play"_s.sm<switcher>()          [ ([](moves& m) { return 0 == m; }) ] / show_game_over = "game over?"_s,

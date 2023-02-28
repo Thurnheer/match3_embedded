@@ -43,9 +43,9 @@ struct switcher {
                                                add_points, show_points,
                                                scroll_board, show_board,
                                                generate_new, show_board,
-                                               process(matches{.arity = 1}))
+                                               process(matches{.arity = 1, .matches{}}))
       , "handle matches"_s + event<matches> [ has_items and not is_item_winning ] / (
-                                               drop_item, process(matches{.arity = 1}))
+                                               drop_item, process(matches{.arity = 1, .matches{}}))
       , "handle matches"_s + event<matches> [ not has_items ] = X
     );
     // clang-format on

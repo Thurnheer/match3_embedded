@@ -12,6 +12,6 @@
 
 namespace match3 {
 
-const auto add_points = [](points& p, const auto& m) { p += m.matches.size(); };
+const auto add_points = [](points& p, const auto& m) { p += static_cast<int>(m.matches.size()); };
 
 }  // match3

@@ -5,8 +5,69 @@
 # (See accompanying file LICENSE_1_0.txt or copy at
 # http://www.boost.org/LICENSE_1_0.txt)
 #
-cmake_minimum_required(VERSION 2.8)
+cmake_minimum_required(VERSION 3.20)
 project(match3 CXX)
+
+add_executable(${PROJECT_NAME})
+
+add_library(project_warnings INTERFACE)
+add_library(project_options INTERFACE)
+
+
+include(cmake/target_link_libraries_system.cmake)
+include(cmake/target_include_directories_system.cmake)
+
+include(cmake/CompilerWarnings.cmake)
+set_project_warnings(project_warnings)
+
+include(cmake/StaticAnalyzers.cmake)
+
+option(ENABLE_TESTING "Enable Test Builds" OFF)
+option(EXPORT_COMPILE_COMMANDS "Enable compile commands for clang refactoring tool" OFF)
+
+
+include(cmake/Sanitizers.cmake)
+enable_sanitizers(project_options)
+
+include(cmake/BuidType.cmake)
+setBuildType()
+
+if(EXPORT_COMPILE_COMMANDS)
+    set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+endif()
+
+
+include(cmake/Dependencies.cmake)
+fetch_dependencies()
+
+if(CMAKE_CROSSCOMPILING)
+    include(cmake/CrossCompiling.cmake)
+    set_crosscompiling(project_options)
+    include(cmake/GenerateElf.cmake)
+    if(${CMAKE_SYSTEM_PROCESSOR} MATCHES XMC4X00)
+        #include(cmake/Generic-GNU-XMC4X00.cmake)
+        #add_subdirectory()
+        #target_link_libraries(${PROJECT_NAME} INTERFACE )
+    elseif(${CMAKE_SYSTEM_PROCESSOR} MATCHES STM32)
+        #include(cmake/Generic-GNU-STM32.cmake)
+        #add_subdirectory()
+        #target_link_libraries(${PROJECT_NAME} INTERFACE )
+    endif()
+else()
+    #add_subdirectory()
+    #target_link_libraries(${PROJECT_NAME} INTERFACE )
+endif()
+
+if(ENABLE_TESTING)
+
+    enable_testing()
+
+    include(CTest)
+
+    add_subdirectory(test)
+
+endif()
+
 
 if(CMAKE_CXX_COMPILER MATCHES "/em\\+\\+(-[a-zA-Z0-9.])*")
   set(CMAKE_CXX_COMPILER_ID "Emscripten")
@@ -23,16 +84,6 @@ if(MEMORYCHECK_COMMAND-NOTFOUND)
 else()
   set(MEMORYCHECK_COMMAND_OPTIONS "--leak-check=full --error-exitcode=1")
 endif()
-
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14")
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O2")
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall")
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wextra")
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Werror")
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pedantic")
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pedantic-errors")
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-c99-extensions")
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -include pph.hpp")
 
 if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Emscripten")
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} --emrun")
@@ -53,14 +104,48 @@ else()
   PKG_SEARCH_MODULE(SDL2TTF REQUIRED SDL2_ttf>=2.0.0)
 endif()
 
-include_directories(include)
-include_directories(libs/di/include)
-include_directories(libs/sml/include)
-include_directories(libs/range-v3/include)
-include_directories(${SDL2_INCLUDE_DIRS} ${SDL2IMAGE_INCLUDE_DIRS} ${SDL2TTF_INCLUDE_DIR})
+target_sources(${PROJECT_NAME}
+    PRIVATE
+    src/main.cpp
+)
 
-add_executable(${PROJECT_NAME} src/main.cpp)
-target_link_libraries(${PROJECT_NAME} ${SDL2_LIBRARIES} ${SDL2IMAGE_LIBRARIES} ${SDL2TTF_LIBRARIES})
+target_include_directories(${PROJECT_NAME}
+    PUBLIC
+    include
+)
 
-enable_testing()
-add_subdirectory(test)
+target_compile_options(${PROJECT_NAME}
+    PRIVATE
+    -include pph.hpp
+)
+
+target_include_directories_system(${PROJECT_NAME}
+    PRIVATE
+    sml
+    Boost.DI
+    range-v3 
+)
+
+target_include_directories(${PROJECT_NAME}
+    PRIVATE
+    ${SDL2_INCLUDE_DIRS}
+    ${SDL2IMAGE_INCLUDE_DIRS}
+    ${SDL2TTF_INCLUDE_DIR}
+)
+
+target_link_libraries(${PROJECT_NAME}
+    PRIVATE
+    project_warnings
+    project_options
+    ${SDL2_LIBRARIES}
+    ${SDL2IMAGE_LIBRARIES}
+    ${SDL2TTF_LIBRARIES}
+)
+
+add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_SOURCE_DIR}/data ${CMAKE_BINARY_DIR}/data
+)
+
+target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_20)
+
+

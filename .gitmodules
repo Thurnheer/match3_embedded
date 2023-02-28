@@ -1,9 +1,0 @@
-[submodule "libs/di"]
-	path = libs/di
-	url = https://github.com/boost-experimental/di.git
-[submodule "libs/range-v3"]
-	path = libs/range-v3
-	url = https://github.com/ericniebler/range-v3.git
-[submodule "libs/sml"]
-	path = libs/sml
-	url = https://github.com/boost-experimental/sml.git

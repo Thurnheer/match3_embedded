@@ -33,7 +33,7 @@ class game {
       player_.process_event(time_tick{});
       SDL_Event event;
       while (SDL_PollEvent(&event)) {
-        dispatch_event(event, event.type);
+        dispatch_event(event, static_cast<int>(event.type));
       }
     } while (EM(false &&)() !player_.is(sml::X));
   }

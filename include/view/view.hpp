@@ -20,7 +20,7 @@ class view {
 
  public:
   view(icanvas& canvas, config conf) : canvas_(canvas), config_(conf) {
-    grids.reserve(config_.board_colors);
+    grids.reserve(static_cast<size_t>(config_.board_colors));
     for (auto i = 0; i <= config_.board_colors; ++i) {
       grids.emplace_back(
           canvas_.load_image("data/images/" + std::to_string(i) + ".png"));
@@ -30,7 +30,7 @@ class view {
   }
 
   void set_grid(int x, int y, int c) {
-    canvas_.draw(grids[c], grids_offset_x + (x * grid_offset),
+    canvas_.draw(grids[static_cast<size_t>(c)], grids_offset_x + (x * grid_offset),
                  grids_offset_y + (y * grid_offset));
   }
 

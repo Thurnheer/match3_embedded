@@ -96,7 +96,7 @@ const auto match_n = [](auto&& view, auto color,
                         const int max_match_length = 3) {
   const auto&& matches =
       ranges::views::ints |
-      ranges::views::take(ranges::size(view) - max_match_length + 1) |
+      ranges::views::take(ranges::size(view) - static_cast<size_t>(max_match_length) + 1) |
       ranges::views::transform([=](auto i) {
         return ranges::count(view | ranges::views::drop(i) |
                                  ranges::views::take(max_match_length),
@@ -146,7 +146,7 @@ const auto match_n = [](auto&& view, auto color,
  * @return true, if there is a match, false otherwise
  */
 const auto is_match = [](auto&& view, auto n, auto width) {
-  const auto color = view[n];
+  const auto color = view[static_cast<size_t>(n)];
   const auto x = n % width;
   const auto y = n / width;
   return match_n(row(view, y, width), color).length ||
@@ -178,7 +178,7 @@ const auto is_match = [](auto&& view, auto n, auto width) {
  */
 // clang-format on
 const auto match = [](auto&& view, auto n, auto width) {
-  const auto color = view[n];
+  const auto color = view[static_cast<size_t>(n)];
   const auto x = n % width;
   const auto y = n / width;
   const auto match_r = match_n(row(view, y, width), color);
@@ -233,7 +233,7 @@ class board {
       : grids(grids_.begin(), grids_.end()), width(c.board_width) {
       }
 
-  void swipe(const int p1, const int p2) { std::swap(grids[p1], grids[p2]); }
+  void swipe(const int p1, const int p2) { std::swap(grids[static_cast<size_t>(p1)], grids[static_cast<size_t>(p2)]); }
 
   bool is_match(const int position) const {
     return board_logic::is_match(grids, position, width);
@@ -248,10 +248,10 @@ class board {
   }
 
   void update(const int position, const color_t value) {
-    grids[position] = value;
+    grids[static_cast<size_t>(position)] = value;
   }
 
-  auto operator[](const int position) const { return grids[position]; }
+  auto operator[](const int position) const { return grids[static_cast<size_t>(position)]; }
 
  private:
   std::vector<color_t> grids;
