@@ -5,18 +5,22 @@
 // (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
 //
+#include <catch2/catch.hpp>
 #include "common/logger.hpp"
 #include "common/mocks_provider.hpp"
 #include "common/utils.hpp"
-#include "config.hpp"
-#include "controller/player.hpp"
-#include "model/board.hpp"
+#include "libconfig/config.hpp"
+#include "libcontroller/player.hpp"
+#include "libmodel/board.hpp"
+#include <queue>
 
 namespace di = boost::di;
 namespace sml = boost::sml;
 
-int main() {
-  "match3, matchl, out of moves, game over, reset"_test = [] {
+SCENARIO("match", "[match3]")
+{
+  GIVEN("match3, matchl, out of moves, game over, reset")
+  {
     // given
     constexpr auto moves = 2;
     constexpr auto width = 7;
@@ -59,18 +63,18 @@ int main() {
     When(Method(animations, update)).AlwaysDo([] {});
     When(Method(animations, done)).AlwaysReturn(true);
 
-    expect(equal<width * height>(injector.create<match3::board>(),
+    REQUIRE(equal<width * height>(injector.create<match3::board>(),
                                  injector.create<match3::board&>()));
 
     // when
-    auto sm = injector.create<sml::sm<match3::player, sml::logger<logger>>>();
-    expect(2 == injector.create<match3::moves&>());
+    auto sm = injector.create<sml::sm<match3::player, sml::defer_queue<std::deque>, sml::process_queue<std::queue>, sml::logger<logger>>>();
+    REQUIRE(2 == injector.create<match3::moves&>());
 
     swipe(sm, {2, 1}, {2, 0});
-    expect(1 == injector.create<match3::moves&>());
+    REQUIRE(1 == injector.create<match3::moves&>());
 
     // then
-    expect(equal<width * height>({/*0 1 2 3 4 5 6*/
+    REQUIRE(equal<width * height>({/*0 1 2 3 4 5 6*/
                                   /*0*/ 42, 43, 44, 4, 3, 2, 2,
                                   /*1*/ 3,  5,  4,  2, 5, 1, 3,
                                   /*2*/ 5,  3,  5,  4, 5, 3, 2,
@@ -85,10 +89,10 @@ int main() {
 
     // when
     swipe(sm, {6, 9}, {6, 8});
-    expect(0 == injector.create<match3::moves&>());
+    REQUIRE(0 == injector.create<match3::moves&>());
 
     // then
-    expect(equal<width * height>({/*0 1 2 3 4 5 6*/
+    REQUIRE(equal<width * height>({/*0 1 2 3 4 5 6*/
                                   /*0*/ 42, 43, 44, 4, 45, 46, 50,
                                   /*1*/ 3,  5,  4,  2, 3,  2,  51,
                                   /*2*/ 5,  3,  5,  4, 5,  1,  52,
@@ -103,6 +107,6 @@ int main() {
 
     // when
     sm.process_event(make_click_event<match3::up>(3, 3));  // reset
-    expect(moves == injector.create<match3::moves&>());
-  };
+    REQUIRE(moves == injector.create<match3::moves&>());
+  }
 }

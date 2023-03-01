@@ -6,9 +6,6 @@
 # http://www.boost.org/LICENSE_1_0.txt)
 #
 cmake_minimum_required(VERSION 3.20)
-project(match3 CXX)
-
-add_executable(${PROJECT_NAME})
 
 add_library(project_warnings INTERFACE)
 add_library(project_options INTERFACE)
@@ -67,8 +64,6 @@ if(ENABLE_TESTING)
     add_subdirectory(test)
 
 endif()
-
-
 if(CMAKE_CXX_COMPILER MATCHES "/em\\+\\+(-[a-zA-Z0-9.])*")
   set(CMAKE_CXX_COMPILER_ID "Emscripten")
 endif()
@@ -98,54 +93,22 @@ if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Emscripten")
   add_custom_command(TARGET emrun COMMAND emrun --port 8080 index.html)
   add_executable(${WEB} src/main.cpp)
 else()
-  include(FindPkgConfig)
-  PKG_SEARCH_MODULE(SDL2 REQUIRED sdl2)
-  PKG_SEARCH_MODULE(SDL2IMAGE REQUIRED SDL2_image>=2.0.0)
-  PKG_SEARCH_MODULE(SDL2TTF REQUIRED SDL2_ttf>=2.0.0)
+    #include(FindPkgConfig)
+    #PKG_SEARCH_MODULE(SDL2 REQUIRED sdl2)
+    #PKG_SEARCH_MODULE(SDL2IMAGE REQUIRED SDL2_image>=2.0.0)
+    #PKG_SEARCH_MODULE(SDL2TTF REQUIRED SDL2_ttf>=2.0.0)
 endif()
 
-target_sources(${PROJECT_NAME}
-    PRIVATE
-    src/main.cpp
-)
+add_subdirectory(config)
+add_subdirectory(controller)
+add_subdirectory(core)
+add_subdirectory(model)
+add_subdirectory(view)
 
-target_include_directories(${PROJECT_NAME}
-    PUBLIC
-    include
-)
-
-target_compile_options(${PROJECT_NAME}
-    PRIVATE
-    -include pph.hpp
-)
-
-target_include_directories_system(${PROJECT_NAME}
-    PRIVATE
-    sml
-    Boost.DI
-    range-v3 
-)
-
-target_include_directories(${PROJECT_NAME}
-    PRIVATE
-    ${SDL2_INCLUDE_DIRS}
-    ${SDL2IMAGE_INCLUDE_DIRS}
-    ${SDL2TTF_INCLUDE_DIR}
-)
-
-target_link_libraries(${PROJECT_NAME}
-    PRIVATE
-    project_warnings
-    project_options
-    ${SDL2_LIBRARIES}
-    ${SDL2IMAGE_LIBRARIES}
-    ${SDL2TTF_LIBRARIES}
-)
-
-add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
-    COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_SOURCE_DIR}/data ${CMAKE_BINARY_DIR}/data
-)
-
-target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_20)
+if(CMAKE_CROSSCOMPILING)
+    add_subdirectory(match3_stm)
+else()
+    add_subdirectory(match3_desktop)
+endif()
 
 
