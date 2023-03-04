@@ -1,0 +1,138 @@
+{
+  "Application": {
+    "Screens": [
+      {
+        "Name": "Screen1",
+        "Components": [
+          {
+            "Type": "Container",
+            "Name": "container1",
+            "Width": 272,
+            "Height": 480,
+            "Clickable": true,
+            "Components": [
+              {
+                "Type": "Image",
+                "Name": "image1",
+                "Width": 38,
+                "Height": 37,
+                "RelativeFilename": "match.png"
+              },
+              {
+                "Type": "Image",
+                "Name": "image6",
+                "X": 76,
+                "Width": 35,
+                "Height": 35,
+                "RelativeFilename": "img3.png",
+                "Draggable": true,
+                "Clickable": true
+              },
+              {
+                "Type": "Image",
+                "Name": "image5",
+                "X": 38,
+                "Width": 38,
+                "Height": 37,
+                "RelativeFilename": "img1.png",
+                "Draggable": true,
+                "Clickable": true
+              },
+              {
+                "Type": "Image",
+                "Name": "image4",
+                "X": 145,
+                "Y": 1,
+                "Width": 35,
+                "Height": 36,
+                "RelativeFilename": "img2.png",
+                "Draggable": true,
+                "Clickable": true
+              },
+              {
+                "Type": "Image",
+                "Name": "image3",
+                "X": 180,
+                "Y": 2,
+                "Width": 35,
+                "Height": 35,
+                "RelativeFilename": "img4.png",
+                "Draggable": true,
+                "Clickable": true
+              },
+              {
+                "Type": "Image",
+                "Name": "image2",
+                "X": 111,
+                "Width": 34,
+                "Height": 36,
+                "RelativeFilename": "img5.png",
+                "Draggable": true,
+                "Clickable": true
+              }
+            ]
+          }
+        ],
+        "Interactions": []
+      }
+    ],
+    "CustomContainerDefinitions": [],
+    "Name": "match3",
+    "Resolution": {
+      "Width": 480,
+      "Height": 272
+    },
+    "SelectedColorDepth": 24,
+    "StartupScreenName": "Screen1",
+    "SelectedStartupLanguage": "GB",
+    "TouchGfxPath": "../Middlewares/ST/touchgfx",
+    "UIPath": ".",
+    "AvailableColorDepths": [
+      24
+    ],
+    "AvailableLCDs": {
+      "24": "LCD24bpp"
+    },
+    "AvailableSections": [
+      "ExtFlashSection",
+      "IntFlashSection"
+    ],
+    "AvailableResolutions": [
+      {
+        "Width": 480,
+        "Height": 272
+      }
+    ],
+    "PhysicalButtons": [],
+    "FrameworkFeatures": {
+      "LCD24bpp": {
+        "Id": "LCD24bpp",
+        "IsEnabled": true
+      }
+    },
+    "GenerateAssetsCommand": "make -f simulator/gcc/Makefile assets -j8",
+    "PostGenerateCommand": "touchgfx update_project --project-file=simulator/msvs/Application.vcxproj",
+    "PostGenerateTargetCommand": "touchgfx update_project",
+    "CompileSimulatorCommand": "make -f simulator/gcc/Makefile -j8",
+    "RunSimulatorCommand": "build\\bin\\simulator.exe",
+    "CompileTargetCommandOverride": "make -f ../gcc/Makefile -j8",
+    "FlashTargetCommandOverride": "make -f ../gcc/Makefile flash",
+    "LandscapeSkinX": 0,
+    "LandscapeSkinY": 0,
+    "PortraitSkinX": 0,
+    "PortraitSkinY": 0,
+    "DisplayOrientation": "Portrait",
+    "Family": "STM32H7",
+    "SubFamily": "STM32H725/735",
+    "Toolchain": "STM32CubeIDE",
+    "Platform": "m7",
+    "ProjectFile": "../STM32H735G-DK.ioc",
+    "OptionalComponentsRoot": "../Middlewares/ST/touchgfx_components",
+    "OptionalComponents": [],
+    "AdditionalFeatures": [
+      "Vector"
+    ]
+  },
+  "Version": "4.21.1",
+  "CreatedBy": "4.21.1"
+}

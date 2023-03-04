@@ -1,0 +1,117 @@
+{
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+
+    {
+      "cwd": "${workspaceRoot}",
+      "executable": "${command:cmake.launchTargetPath}",
+      "name": "Debug XMC4x00 Microcontroller",
+      "request": "launch",
+      "type": "cortex-debug",
+      "servertype": "jlink",
+      "serverpath": "JLinkGDBServerCL",
+      "armToolchainPath": "",
+      "device": "XMC4700-2048",
+      "interface": "swd",
+      "serialNumber": "",
+      // add J-Link serial number if having multiple attached the same time.
+      "runToMain": true,
+      "svdFile": "${workspaceRoot}/Application.EZ/XMC4700.svd"
+    },
+    {
+      "cwd": "${workspaceRoot}",
+      "executable": "${command:cmake.launchTargetPath}.elf",
+      "name": "Debug STM32 Microcontroller",
+      "request": "launch",
+      "type": "cortex-debug",
+      "servertype": "jlink",
+      "serverpath": "JLinkGDBServerCL",
+      "armToolchainPath": "",
+      "device": "STM32L476RG",
+      "interface": "swd",
+      "serialNumber": "",
+      // add J-Link serial number if having multiple attached the same time.
+      "runToMain": true,
+      "svdFile": "${workspaceRoot}/Application.EZ/STM32L476.svd"
+    }
+    {
+      "name": "Stm discovery kit",
+      "cwd": "${workspaceRoot}",
+      "executable": "${workspaceRoot}/build/${workspaceFolderBasename}.elf",
+      "request": "launch",
+      "type": "cortex-debug",
+      "servertype": "openocd",
+      "device": "STM32F735IG",
+      //"configFiles": [
+        //"interface/stlink.cfg",
+        //"target/stm32f4x.cfg"
+      //],
+      "preLaunchTask": "flash-openocd",
+      "showDevDebugOutput": "raw",
+      "svdFile": "${workspaceRoot}/debug-files/STM32F411.svd"
+    }
+    {
+        "cwd": "${workspaceRoot}",
+        "name": "STLink-V3",
+        //"cwd": "${workspaceFolder}",        //Path from where commands are executed
+        "type": "cortex-debug",             //Debug 
+        "executable": "${command:cmake.launchTargetPath}", //or fixed file path: build/project-name.elf
+        "request": "launch",                //Use "attach" to connect to target w/o elf download
+        "servertype": "stlink",             //Use stlink setup of cortex-M debug
+        "device": "STM32H735IG",            //MCU used
+        "interface": "swd",                 //Interface setup
+        "serialNumber": "",                 //Set ST-Link ID if you use multiple at the same time
+        "runToEntryPoint": "main",          //Run to main and stop there
+        //"svdFile": "STM32H73x.svd",         //SVD file to see reisters
+        "v1": false,
+        "showDevDebugOutput": "both",
+
+        /* Will get automatically detected if STM32CubeIDE is installed to default directory
+           or it can be manually provided if necessary.. */
+        //"serverpath": "c:\\ST\\STM32CubeIDE_1.7.0\\STM32CubeIDE\\plugins\\com.st.stm32cube.ide.mcu.externaltools.stlink-gdb-server.win32_2.0.100.202109301221\\tools\\bin\\ST-LINK_gdbserver.exe",
+        //"armToolchainPath": "c:\\ST\\STM32CubeIDE_1.7.0\\STM32CubeIDE\\plugins\\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.9-2020-q2-update.win32_2.0.0.202105311346\\tools\\bin",
+        "stm32cubeprogrammer": "/home/cth/STMicroelectronics/STM32Cube/STM32CubeProgrammer/bin/",
+
+        /* If you use external loader, add additional arguments */
+        //"serverArgs": ["--extload", "path/to/ext/loader.stldr"],
+    }
+    {
+        "cwd": "${workspaceRoot}",
+        "name": "Openocd stm",
+        //"cwd": "${workspaceFolder}",        //Path from where commands are executed
+        "type": "cortex-debug",             //Debug 
+        "executable": "${command:cmake.launchTargetPath}", //or fixed file path: build/project-name.elf
+        "request": "launch",                //Use "attach" to connect to target w/o elf download
+        "servertype": "openocd",             //Use stlink setup of cortex-M debug
+        "configFiles": [
+            "/usr/share/openocd/scripts/interface/stlink.cfg",
+            "/usr/share/openocd/scripts/target/stm32h7x.cfg"
+        ],
+        "overrideLaunchCommands": [
+            "interpreter-exec console \"monitor reset halt\"",
+            //'target-download',
+            //'interpreter-exec console \"monitor reset halt\"',
+            "-enable-pretty-printing"
+        ],
+        "device": "STM32H735IG",            //MCU used
+        "interface": "swd",                 //Interface setup
+        "serialNumber": "",                 //Set ST-Link ID if you use multiple at the same time
+        "runToEntryPoint": "main",          //Run to main and stop there
+        "svdFile": "STM32H73x.svd",         //SVD file to see reisters
+        "v1": false,
+        "showDevDebugOutput": "both",
+
+        /* Will get automatically detected if STM32CubeIDE is installed to default directory
+           or it can be manually provided if necessary.. */
+        //"serverpath": "c:\\ST\\STM32CubeIDE_1.7.0\\STM32CubeIDE\\plugins\\com.st.stm32cube.ide.mcu.externaltools.stlink-gdb-server.win32_2.0.100.202109301221\\tools\\bin\\ST-LINK_gdbserver.exe",
+        //"armToolchainPath": "c:\\ST\\STM32CubeIDE_1.7.0\\STM32CubeIDE\\plugins\\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.9-2020-q2-update.win32_2.0.0.202105311346\\tools\\bin",
+        "stm32cubeprogrammer": "/home/cth/STMicroelectronics/STM32Cube/STM32CubeProgrammer/bin/",
+
+        /* If you use external loader, add additional arguments */
+        //"serverArgs": ["--extload", "path/to/ext/loader.stldr"],
+    }
+  ]
+}

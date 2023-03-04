@@ -1,50 +1,35 @@
 cmake_minimum_required(VERSION 3.18.4)
 
-project(View VERSION 1.0)
+project(Match3_stm VERSION 1.0)
               
+if(CMAKE_CROSSCOMPILING AND CMAKE_SYSTEM_PROCESSOR MATCHES STM32H735)
 
-add_library(${PROJECT_NAME} INTERFACE)
-add_library(match3::${PROJECT_NAME} ALIAS ${PROJECT_NAME})
+add_executable(${PROJECT_NAME})
+
+generate_elf(${PROJECT_NAME})
+
+add_subdirectory(Drivers)
+add_subdirectory(Middlewares)
+add_subdirectory(TouchGFX)
 
 target_include_directories(${PROJECT_NAME}
-    PUBLIC
+    PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}
 )
 
-target_link_libraries(${PROJECT_NAME} PUBLIC
+target_sources(${PROJECT_NAME}
+    PRIVATE
+    main.c
 )
 
-if(ENABLE_TESTING)
-
-    # compile with the unit test define which enables test functions (bad practice)
-    # for the normal lib
-
-    target_compile_definitions(${PROJECT_NAME} PRIVATE
-        _UNITTEST
-    ) 
-
-    add_executable(${PROJECT_NAME}_unittest)
-
-    target_sources(${PROJECT_NAME}_unittest
-        PRIVATE
-    )
-
-    target_link_libraries(${PROJECT_NAME}_unittest PRIVATE
-        ${PROJECT_NAME}
-        trompeloeil::trompeloeil
-    )
-
-    target_link_libraries_system(${PROJECT_NAME}_unittest PRIVATE Catch2::Catch2WithMain)
-
-    catch_discover_tests(${PROJECT_NAME}_unittest
-        TEST_PREFIX
-        "unittests.${PROJECT_NAME}."
-        -s
-        --reporter=xml
-        --out=tests.xml
-    )
-
-#add_subdirectory(tests)
+target_link_libraries(${PROJECT_NAME}
+    PRIVATE
+    match3::Drivers
+    match3::Middlewares
+    match3::Touchgfx
+    project_options
+    #project_warnings
+)
 
 endif()
 

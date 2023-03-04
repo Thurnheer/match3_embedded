@@ -1,0 +1,9 @@
+{
+  "cmake.configureOnOpen": true,
+  "cmake.buildDirectory": "${workspaceFolder}/build/${buildKit}/${buildType}",
+  "cortex-debug.variableUseNaturalFormat": true,
+  "clangd.arguments": [
+    "-background-index",
+    "-compile-commands-dir=${cmake.buildDirectory}"
+  ]
+}
