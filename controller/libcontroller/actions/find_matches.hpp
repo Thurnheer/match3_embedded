@@ -11,7 +11,7 @@
 #include <range/v3/action/push_back.hpp>
 #include <range/v3/action/sort.hpp>
 #include <range/v3/action/unique.hpp>
-#include "libcontroller/data/selected.hpp"
+#include "libmodel/data/selected.hpp"
 #include "libcontroller/events/matches.hpp"
 #include "libmodel/board.hpp"
 

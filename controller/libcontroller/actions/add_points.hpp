@@ -7,7 +7,7 @@
 //
 #pragma once
 
-#include "libcontroller/data/points.hpp"
+#include "libmodel/data/points.hpp"
 #include "libcontroller/events/matches.hpp"
 
 namespace match3 {

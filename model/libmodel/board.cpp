@@ -15,7 +15,7 @@ constexpr bool equal_to(std::initializer_list<T> il, R&& r)
     return ranges::equal(r, il);
 }
 
-SCENARIO("", "[model]")
+SCENARIO("board", "[model]")
 {
   using namespace match3::board_logic;
 

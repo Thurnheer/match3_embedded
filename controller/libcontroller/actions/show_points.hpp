@@ -7,7 +7,7 @@
 //
 #pragma once
 
-#include "libcontroller/data/points.hpp"
+#include "libmodel/data/points.hpp"
 #include "libview/ianimations.hpp"
 #include "libview/view.hpp"
 

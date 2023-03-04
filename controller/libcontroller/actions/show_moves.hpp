@@ -7,7 +7,7 @@
 //
 #pragma once
 
-#include "libcontroller/data/moves.hpp"
+#include "libmodel/data/moves.hpp"
 #include "libview/ianimations.hpp"
 #include "libview/view.hpp"
 

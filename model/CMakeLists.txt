@@ -32,6 +32,8 @@ if(ENABLE_TESTING)
     target_sources(${PROJECT_NAME}_unittest
         PRIVATE
         ${CMAKE_CURRENT_SOURCE_DIR}/libmodel/board.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/libmodel/guards/is_item_winning.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/libmodel/guards/is_key.cpp
     )
 
     target_link_libraries(${PROJECT_NAME}_unittest PRIVATE

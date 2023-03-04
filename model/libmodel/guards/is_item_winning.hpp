@@ -7,10 +7,13 @@
 //
 #pragma once
 
-#include "libcontroller/data/selected.hpp"
+#include "libmodel/data/selected.hpp"
+#include "libmodel/board.hpp"
 
 namespace match3 {
 
-const auto has_items = [](const selected& s) { return !s.empty(); };
+const auto is_item_winning = [](const board& b, const selected& s) {
+  return !s.empty() && b.is_match(s.back());
+};
 
 }  // match3

@@ -7,13 +7,15 @@
 //
 #pragma once
 
-#include "libcontroller/data/selected.hpp"
+#include <cassert>
+#include "libmodel/data/selected.hpp"
 #include "libmodel/board.hpp"
 
 namespace match3 {
 
-const auto is_item_winning = [](const board& b, const selected& s) {
-  return !s.empty() && b.is_match(s.back());
+const auto is_swap_items_winning = [](const board& b, const selected& s) {
+  assert(s.size() == 2);
+  return b.is_match(s[0]) || b.is_match(s[1]);
 };
 
 }  // match3

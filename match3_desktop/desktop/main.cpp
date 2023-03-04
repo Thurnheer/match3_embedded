@@ -13,7 +13,7 @@
 #include <algorithm>
 #include <deque>
 #include <range/v3/action/action.hpp>
-#include <libcontroller/data/randomize.hpp>
+#include <libmodel/data/randomize.hpp>
 #include <vector>
 
 namespace di = boost::di;

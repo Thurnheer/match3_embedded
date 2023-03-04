@@ -6,9 +6,9 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 //
 #include <catch2/catch.hpp>
-#include "libcontroller/guards/is_key.hpp"
+#include "libmodel/guards/is_key.hpp"
 
-SCENARIO("", "[guards]")
+SCENARIO("is key", "[guards]")
 {
   using namespace match3;
   GIVEN("is key")

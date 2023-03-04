@@ -9,7 +9,7 @@
 
 #include <cassert>
 #include "libconfig/config.hpp"
-#include "libcontroller/data/selected.hpp"
+#include "libmodel/data/selected.hpp"
 #include "libmodel/board.hpp"
 
 namespace match3 {

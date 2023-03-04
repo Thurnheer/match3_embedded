@@ -17,8 +17,8 @@
 #include "libcontroller/actions/show_matches.hpp"
 #include "libcontroller/actions/show_points.hpp"
 #include "libcontroller/events/matches.hpp"
-#include "libcontroller/guards/has_items.hpp"
-#include "libcontroller/guards/is_item_winning.hpp"
+#include "libmodel/guards/has_items.hpp"
+#include "libmodel/guards/is_item_winning.hpp"
 
 namespace sml = boost::sml;
 

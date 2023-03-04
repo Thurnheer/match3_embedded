@@ -17,8 +17,8 @@
 #include <range/v3/view/remove_if.hpp>
 #include <range/v3/view/take.hpp>
 #include "libconfig/config.hpp"
-#include "libcontroller/data/randomize.hpp"
-#include "libcontroller/data/selected.hpp"
+#include "libmodel/data/randomize.hpp"
+#include "libmodel/data/selected.hpp"
 #include "libmodel/board.hpp"
 
 namespace match3 {

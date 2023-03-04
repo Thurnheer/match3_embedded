@@ -9,10 +9,10 @@
 
 #include <cassert>
 #include "libconfig/config.hpp"
-#include "libcontroller/data/moves.hpp"
-#include "libcontroller/data/points.hpp"
-#include "libcontroller/data/randomize.hpp"
-#include "libcontroller/data/selected.hpp"
+#include "libmodel/data/moves.hpp"
+#include "libmodel/data/points.hpp"
+#include "libmodel/data/randomize.hpp"
+#include "libmodel/data/selected.hpp"
 #include "libmodel/board.hpp"
 #include "libview/view.hpp"
 

@@ -6,7 +6,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 //
 #include <catch2/catch.hpp>
-#include "libcontroller/guards/is_item_winning.hpp"
+#include "libmodel/guards/is_item_winning.hpp"
 #include "libconfig/config.hpp"
 #include "libmodel/board.hpp"
 #include <libcore/Warnings.hpp>
@@ -14,7 +14,7 @@
 DISABLE_WARNING_PUSH
 DISABLE_WARNING_MISSING_FIELD_INITIALIZER
 
-SCENARIO("", "[guards]")
+SCENARIO("no winning", "[guards]")
 {
   using namespace match3;
   GIVEN("is item no winning")

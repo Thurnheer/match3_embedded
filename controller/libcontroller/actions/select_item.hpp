@@ -7,7 +7,7 @@
 //
 #pragma once
 
-#include "libcontroller/data/selected.hpp"
+#include "libmodel/data/selected.hpp"
 #include "libcontroller/events/down.hpp"
 #include "libcontroller/events/up.hpp"
 #include "libview/view.hpp"

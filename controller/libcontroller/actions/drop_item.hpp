@@ -8,7 +8,7 @@
 #pragma once
 
 #include <cassert>
-#include "libcontroller/data/selected.hpp"
+#include "libmodel/data/selected.hpp"
 
 namespace match3 {
 

@@ -50,8 +50,6 @@ if(ENABLE_TESTING)
         ${CMAKE_CURRENT_SOURCE_DIR}/libcontroller/actions/swap_items.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/libcontroller/actions/drop_item.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/libcontroller/actions/clear_selected.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/libcontroller/guards/is_item_winning.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/libcontroller/guards/is_key.cpp
     )
 
     target_link_libraries(${PROJECT_NAME}_unittest PRIVATE
