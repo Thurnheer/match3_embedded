@@ -20,6 +20,18 @@ public:
     virtual ~Screen1ViewBase();
     virtual void setupScreen();
 
+    inline void add_image(Image& img)
+    {
+        container1.add(img);
+    }
+    inline void remove_all()
+    {
+        container1.removeAll();
+    }
+    inline void remove(Image& img)
+    {
+        container1.remove(img);
+    }
 protected:
     FrontendApplication& application() {
         return *static_cast<FrontendApplication*>(touchgfx::Application::getInstance());
@@ -36,7 +48,7 @@ protected:
     touchgfx::Draggable< touchgfx::ClickListener< touchgfx::Image > > image4;
     touchgfx::Draggable< touchgfx::ClickListener< touchgfx::Image > > image3;
     touchgfx::Draggable< touchgfx::ClickListener< touchgfx::Image > > image2;
-    touchgfx::Draggable< touchgfx::ClickListener< touchgfx::Image > > image12;
+    touchgfx::Image image12;
 
 private:
 

@@ -23,6 +23,7 @@ target_include_directories(${PROJECT_NAME}
 
 target_sources(${PROJECT_NAME}
     PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}/make_game.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/target/STM32TouchController.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/target/TouchGFXGPIO.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/target/generated/TouchGFXConfiguration.cpp
@@ -62,11 +63,26 @@ target_sources(${PROJECT_NAME}
     ${CMAKE_CURRENT_SOURCE_DIR}/gui/src/screen1_screen/Screen1Presenter.cpp
 )
 
-target_link_libraries(${PROJECT_NAME}
-    PUBLIC
+target_link_libraries_system(${PROJECT_NAME}
+    PRIVATE
     match3::Middlewares
     match3::Drivers
+    match3::Config
+    match3::Model
+    match3::Controller
+    Boost.DI
+    range-v3 
+)
+
+target_include_directories_system(${PROJECT_NAME}
+    INTERFACE
+    sml
+)
+
+target_link_libraries(${PROJECT_NAME}
+    PUBLIC
     project_options
     PRIVATE
+    match3::View
     #project_warnings
 )

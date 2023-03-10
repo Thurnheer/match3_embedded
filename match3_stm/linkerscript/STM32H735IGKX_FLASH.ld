@@ -34,7 +34,7 @@ ENTRY(Reset_Handler)
 /* Highest address of the user mode stack */
 _estack = ORIGIN(RAM_D1) + LENGTH(RAM_D1);	/* end of "RAM_D1" Ram type memory */
 
-_Min_Heap_Size = 0x1000;	/* required amount of heap  */
+_Min_Heap_Size = 0x10000;	/* required amount of heap  */
 _Min_Stack_Size = 0x1000;	/* required amount of stack */
 
 /* Memories definition */

@@ -22,11 +22,18 @@ target_sources(${PROJECT_NAME}
     main.c
 )
 
-target_link_libraries(${PROJECT_NAME}
+target_link_libraries_system(${PROJECT_NAME}
     PRIVATE
     match3::Drivers
     match3::Middlewares
     match3::Touchgfx
+)
+
+target_link_libraries(${PROJECT_NAME}
+    PRIVATE
+    match3::Model
+    match3::Controller
+    match3::View
     project_options
     #project_warnings
 )

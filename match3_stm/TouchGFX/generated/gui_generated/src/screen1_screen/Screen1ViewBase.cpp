@@ -12,7 +12,7 @@ Screen1ViewBase::Screen1ViewBase()
     add(__background);
 
     container1.setPosition(0, 0, 272, 480);
-    image1.setXY(0, 0);
+ /*   image1.setXY(0, 0);
     image1.setBitmap(touchgfx::Bitmap(BITMAP_MATCH_ID));
     container1.add(image1);
 
@@ -22,7 +22,7 @@ Screen1ViewBase::Screen1ViewBase()
 
     image5.setXY(38, 0);
     image5.setBitmap(touchgfx::Bitmap(BITMAP_IMG1_ID));
-    container1.add(image5);
+    //container1.add(image5);
 
     image4.setXY(145, 1);
     image4.setBitmap(touchgfx::Bitmap(BITMAP_IMG2_ID));
@@ -38,7 +38,7 @@ Screen1ViewBase::Screen1ViewBase()
 
     image12.setXY(211, 0);
     image12.setBitmap(touchgfx::Bitmap(BITMAP_IMG3_ID));
-    container1.add(image12);
+    container1.add(image12);*/
 
     add(container1);
 }

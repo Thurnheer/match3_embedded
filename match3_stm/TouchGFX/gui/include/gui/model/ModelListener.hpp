@@ -14,6 +14,12 @@ public:
     {
         model = m;
     }
+
+    void process_click_event(const touchgfx::ClickEvent& evt)
+    {
+        model->process_click_event(evt);
+    }
+
 protected:
     Model* model;
 };

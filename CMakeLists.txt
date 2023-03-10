@@ -93,18 +93,20 @@ else()
 endif()
 
 add_subdirectory(config)
-add_subdirectory(controller)
 add_subdirectory(core)
 add_subdirectory(model)
-add_subdirectory(view)
 
 if(CMAKE_CROSSCOMPILING)
     if(${CMAKE_SYSTEM_PROCESSOR} MATCHES STM32H735)
+        add_subdirectory(controller_stm)
+        add_subdirectory(view_stm)
         add_subdirectory(match3_stm)
     elseif(${CMAKE_SYSTEM_PROCESSOR} MATCHES STM32)
     endif()
 else()
     add_subdirectory(match3_desktop)
+    add_subdirectory(controller_desktop)
+    add_subdirectory(view_desktop)
 endif()
 
 
