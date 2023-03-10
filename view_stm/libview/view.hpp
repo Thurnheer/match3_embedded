@@ -17,12 +17,12 @@ class view {
   static constexpr auto grid_offset = grid_size + 5;
   static constexpr auto grids_offset_x = 15;
   static constexpr auto grids_offset_y = 50;
-const uint16_t BITMAP_IMG1_ID = 0;
-const uint16_t BITMAP_IMG2_ID = 1;
-const uint16_t BITMAP_IMG3_ID = 2;
-const uint16_t BITMAP_IMG4_ID = 3;
-const uint16_t BITMAP_IMG5_ID = 4;
-const uint16_t BITMAP_MATCH_ID = 5;
+    const uint16_t BITMAP_IMG1_ID = 0;
+    const uint16_t BITMAP_IMG2_ID = 1;
+    const uint16_t BITMAP_IMG3_ID = 2;
+    const uint16_t BITMAP_IMG4_ID = 3;
+    const uint16_t BITMAP_IMG5_ID = 4;
+    const uint16_t BITMAP_MATCH_ID = 5;
 
 
  public:
@@ -52,8 +52,8 @@ const uint16_t BITMAP_MATCH_ID = 5;
   }
 
   void set_text(const std::string& text, int x, int y, int font_size = 14) {
-    canvas_.draw(canvas_.create_text(text, "data/fonts/font.ttf", font_size), x,
-                 y);
+    //canvas_.draw(canvas_.create_text(text, "data/fonts/font.ttf", font_size), x,
+                 //y);
   }
 
   void update() { canvas_.render(); }

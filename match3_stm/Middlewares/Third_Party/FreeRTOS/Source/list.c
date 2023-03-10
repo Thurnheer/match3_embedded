@@ -142,7 +142,7 @@ const TickType_t xValueOfInsertion = pxNewListItem->xItemValue;
 			3) Calling an API function from within a critical section or when
 			   the scheduler is suspended, or calling an API function that does
 			   not end in "FromISR" from an interrupt.
-			4) Using a queue or semaphore before it has been initialised or
+			4) Using a queue or semaphore before it has been initialised or 
 			   before the scheduler has been started (are interrupts firing
 			   before vTaskStartScheduler() has been called?).
 		**********************************************************************/

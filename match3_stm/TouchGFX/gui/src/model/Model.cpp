@@ -22,8 +22,8 @@ void Model::tick()
     static int counter{0};
     if(0 == counter % 10)
     {
-        //m_game.player_.process_event(time_tick{});
+        m_game.player_.process_event(time_tick{});
     }
-    m_game.player_.process_event(time_tick{});
+    //m_game.player_.process_event(time_tick{});
     counter++;
 }

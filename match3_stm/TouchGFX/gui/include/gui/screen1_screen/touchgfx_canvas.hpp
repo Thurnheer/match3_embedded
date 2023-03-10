@@ -11,12 +11,8 @@
 #include <touchgfx/widgets/Image.hpp>
 #include <mvp/MVPApplication.hpp>
 #include <gui_generated/screen1_screen/Screen1ViewBase.hpp>
-#include <memory_resource>
 
 namespace match3 {
-
-static char buffer[10000] = {};
-static std::pmr::monotonic_buffer_resource pool{std::data(buffer), std::size(buffer)};
 
 class touchgfx_canvas : public icanvas {
 
@@ -27,55 +23,49 @@ class touchgfx_canvas : public icanvas {
   void draw(std::shared_ptr<void> texture, int x, int y, bool clean) override {
       using namespace touchgfx;
     if (clean) {
-      /*elements_.erase(ranges::remove_if(elements_,
+      elements_.erase(ranges::remove_if(elements_,
                                         [=](const auto& pair) {
                                           return pair.second.x == x &&
                                                  pair.second.y == y;
                                         }),
-                      elements_.end());*/
+                      elements_.end());
     }
-    auto img = std::static_pointer_cast<touchgfx::Image>(texture);
-    auto itr = std::find_if(elements_.begin(), elements_.end(), [x, y](const std::pair<std::shared_ptr<void>, pos>& e)
-            {
-               if(e.second == pos{x, y})
-               {
-                    return true;
-                }
-                return false;
-            });
+    auto img_nr = *(std::static_pointer_cast<BitmapId>(texture).get());
+    auto itr = ranges::find_if(elements_, [=](const auto& pair) {
+                                            return pair.second == pos{x, y};
+                                            });
     if(itr == elements_.end())
     {
-        auto tmp = std::shared_ptr<touchgfx::Image>(reinterpret_cast<Image*>(&resource_[counter_]), [](void* ptr){
+        auto img = std::shared_ptr<touchgfx::Image>(new Image, [](void* ptr){
+            if(auto screen = touchgfx::Application::getCurrentScreen())
+            {
+                auto img = reinterpret_cast<Image*>(ptr);
+                static_cast<Screen1ViewBase*>(screen)->remove(*img);
+                delete img;
+            }
+            });
+        img->setBitmap(touchgfx::Bitmap(img_nr));
+        img->setXY(x, y);
         if(auto screen = touchgfx::Application::getCurrentScreen())
         {
-            auto i = reinterpret_cast<touchgfx::Image*>(ptr);
-            static_cast<Screen1ViewBase*>(screen)->remove(*i);
+            static_cast<Screen1ViewBase*>(screen)->add_image(*img);
         }
-        });
-        tmp->setXY(x, y);
-        tmp->setBitmap(img->getBitmap());
-        //tmp->invalidate();
-        if(auto screen = touchgfx::Application::getCurrentScreen())
-        {
-            static_cast<Screen1ViewBase*>(screen)->add_image(*tmp);
-        }
-        elements_.emplace_back(std::make_pair(tmp, pos(counter_++, x, y)));
+        elements_.push_back(std::make_pair(img, pos{x, y}));
     }
-    //elements_.push_back(std::make_pair(texture, pos{x, y}));
+    else
+    {
+        auto img = std::static_pointer_cast<Image>(itr->first);
+        img->setBitmap(Bitmap(img_nr));
+        img->setXY(x, y);
+        img->invalidate();
+        itr->second = pos{x, y};
+    }
   }
 
   std::shared_ptr<void> load_image(const std::string& file) const override {
-      using namespace touchgfx;
-      const auto img_nr = file[0] - 0x30;
-      auto img = std::shared_ptr<touchgfx::Image>(reinterpret_cast<Image*>(&resource_[counter_++]), [](void* ptr){
-        if(auto screen = touchgfx::Application::getCurrentScreen())
-        {
-            auto img = reinterpret_cast<touchgfx::Image*>(ptr);
-            static_cast<Screen1ViewBase*>(screen)->remove(*img);
-        }
-        });
-      img->setBitmap(touchgfx::Bitmap(img_nr));
-    return img;
+      auto img_nr = std::make_shared<int>(file[0] - 0x30);
+      //*img_nr = file[0] - 0x30;
+    return img_nr;
   }
 
   std::shared_ptr<void> create_text(const std::string& str,
@@ -114,15 +104,12 @@ class touchgfx_canvas : public icanvas {
   }
 
  private:
-  struct pos {int counter; int x; int y;};
-  mutable int counter_{0};
+  struct pos {int x; int y;};
   friend inline bool operator==(const pos& lhs, const pos& rhs) { return lhs.x == rhs.x && lhs.y == rhs.y; }
-  bool first_draw_{true};
   //std::unique_ptr<SDL_Window, void (*)(SDL_Window*)> window_;
   //std::unique_ptr<SDL_Renderer, void (*)(SDL_Renderer*)> renderer_;
   //std::vector<std::pair<std::shared_ptr<void>, SDL_Rect>> elements_;
-  std::pmr::vector<std::pair<std::shared_ptr<void>, pos>> elements_{&pool};
-  mutable std::array<touchgfx::Image, 180> resource_;
+  std::vector<std::pair<std::shared_ptr<void>, pos>> elements_{};
 };
 
 }  // match3
