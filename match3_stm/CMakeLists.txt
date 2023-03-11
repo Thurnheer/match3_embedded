@@ -19,7 +19,8 @@ target_include_directories(${PROJECT_NAME}
 
 target_sources(${PROJECT_NAME}
     PRIVATE
-    main.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/main.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/time.cpp
 )
 
 target_link_libraries_system(${PROJECT_NAME}

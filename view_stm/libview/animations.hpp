@@ -35,7 +35,7 @@ class animations : public ianimations {
     const auto now = std::chrono::duration_cast<std::chrono::milliseconds>(
         std::chrono::system_clock::now().time_since_epoch());
 
-    ranges::for_each(animations_ | ranges::views::take(in_parallel),
+    ranges::for_each(animations_,
                      [&](auto& a) {
                        a.start = a.start == 0ms ? now : a.start;
                        a.animate();
@@ -50,7 +50,9 @@ class animations : public ianimations {
                       animations_.end());
   }
 
-  virtual bool done() const override { return animations_.empty(); }
+  virtual bool done() const override {
+    return animations_.empty();
+  }
 
  private:
   std::vector<animation> animations_;

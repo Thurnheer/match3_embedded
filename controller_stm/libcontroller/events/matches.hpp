@@ -13,7 +13,7 @@
 namespace match3 {
 
 struct matches {
-  static constexpr auto id = __COUNTER__;
+  static constexpr auto id = __COUNTER__ + 10;
   int arity = 0;
   mutable std::vector<board::color_t> matches;
 };

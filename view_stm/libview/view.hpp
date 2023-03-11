@@ -17,12 +17,12 @@ class view {
   static constexpr auto grid_offset = grid_size + 5;
   static constexpr auto grids_offset_x = 15;
   static constexpr auto grids_offset_y = 50;
-    const uint16_t BITMAP_IMG1_ID = 0;
-    const uint16_t BITMAP_IMG2_ID = 1;
-    const uint16_t BITMAP_IMG3_ID = 2;
-    const uint16_t BITMAP_IMG4_ID = 3;
-    const uint16_t BITMAP_IMG5_ID = 4;
-    const uint16_t BITMAP_MATCH_ID = 5;
+    /*const uint16_t BITMAP_IMG1_ID ;
+    const uint16_t BITMAP_IMG2_ID ;
+    const uint16_t BITMAP_IMG3_ID ;
+    const uint16_t BITMAP_IMG4_ID ;
+    const uint16_t BITMAP_IMG5_ID ;
+    const uint16_t BITMAP_MATCH_ID ;*/
 
 
  public:
@@ -33,11 +33,11 @@ class view {
           canvas_.load_image( std::to_string(i) ));
     };
 
-    match_ = canvas_.load_image("5");
+    match_ = canvas_.load_image("6");
   }
 
   void set_grid(int x, int y, int c) {
-    canvas_.draw(grids[static_cast<size_t>(c)], grids_offset_x + (x * grid_offset),
+        canvas_.draw(grids[static_cast<size_t>(c)], grids_offset_x + (x * grid_offset),
                  grids_offset_y + (y * grid_offset));
   }
 

@@ -151,8 +151,8 @@ elseif(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
         #"$<$<COMPILE_LANGUAGE:CXX>:-ffreestanding>"
         "$<$<CXX_COMPILER_ID:GNU>:-fno-unwind-tables>"
         #"$<$<CXX_COMPILER_ID:GNU>:-nostdlib>"
-        "$<$<CONFIG:Debug>:-Og>"
-        "$<$<COMPILE_LANGUAGE:CXX>:-fcoroutines>"
+        "$<$<CONFIG:Debug>:-O0>"
+        #"$<$<COMPILE_LANGUAGE:CXX>:-fcoroutines>"
         "$<$<CONFIG:MinSizeRel>:-Oz>" # when gcc version >= 11.2
     )
 

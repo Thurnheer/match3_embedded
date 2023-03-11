@@ -18,6 +18,7 @@ class touchgfx_canvas : public icanvas {
 
  public:
   explicit touchgfx_canvas(const config c) noexcept
+  : config_(c)
   {
   }
   void draw(std::shared_ptr<void> texture, int x, int y, bool clean) override {
@@ -30,35 +31,22 @@ class touchgfx_canvas : public icanvas {
                                         }),
                       elements_.end());
     }
-    auto img_nr = *(std::static_pointer_cast<BitmapId>(texture).get());
-    auto itr = ranges::find_if(elements_, [=](const auto& pair) {
-                                            return pair.second == pos{x, y};
-                                            });
-    if(itr == elements_.end())
-    {
-        auto img = std::shared_ptr<touchgfx::Image>(new Image, [](void* ptr){
-            if(auto screen = touchgfx::Application::getCurrentScreen())
-            {
-                auto img = reinterpret_cast<Image*>(ptr);
-                static_cast<Screen1ViewBase*>(screen)->remove(*img);
-                delete img;
-            }
-            });
-        img->setBitmap(touchgfx::Bitmap(img_nr));
-        img->setXY(x, y);
+    int img_nr = *(std::static_pointer_cast<BitmapId>(texture).get());
+    auto img = std::shared_ptr<touchgfx::Image>(new Image, [](void* ptr){
         if(auto screen = touchgfx::Application::getCurrentScreen())
         {
-            static_cast<Screen1ViewBase*>(screen)->add_image(*img);
+            auto img = reinterpret_cast<Image*>(ptr);
+            static_cast<Screen1ViewBase*>(screen)->remove(*img);
+            delete img;
         }
-        elements_.push_back(std::make_pair(img, pos{x, y}));
-    }
-    else
+        });
+    
+    img->setBitmap(touchgfx::Bitmap(img_nr-1));
+    img->setXY(x, y);
+    elements_.push_back(std::make_pair(img, pos{x, y}));
+    if(auto screen = touchgfx::Application::getCurrentScreen())
     {
-        auto img = std::static_pointer_cast<Image>(itr->first);
-        img->setBitmap(Bitmap(img_nr));
-        img->setXY(x, y);
-        img->invalidate();
-        itr->second = pos{x, y};
+        static_cast<Screen1ViewBase*>(screen)->add_image(*img);
     }
   }
 
@@ -75,28 +63,11 @@ class touchgfx_canvas : public icanvas {
   }
 
   void render() override {
-    /*SDL_RenderClear(renderer_.get());
-    for (const auto& element : elements_) {
-      const auto sprite = static_cast<SDL_Texture*>(element.first.get());
-      SDL_RenderCopy(renderer_.get(), sprite, nullptr, &element.second);
+    using namespace touchgfx;
+    if(auto screen = touchgfx::Application::getCurrentScreen())
+    {
+        static_cast<Screen1ViewBase*>(screen)->redraw();
     }
-    SDL_RenderPresent(renderer_.get());*/
-      /*auto screen = touchgfx::Application::getCurrentScreen();
-      if(screen)
-      {
-          if(first_draw_)
-          {
-            first_draw_ = false;
-            for(auto& e : elements_)
-            {
-                static_cast<Screen1ViewBase*>(screen)->add_image(e.first);
-            }
-          }
-          for(auto& e : elements_)
-          {
-              e.first.setXY(e.second.x, e.second.y);
-          }
-      }*/
   }
 
   void clear() override {
@@ -110,6 +81,7 @@ class touchgfx_canvas : public icanvas {
   //std::unique_ptr<SDL_Renderer, void (*)(SDL_Renderer*)> renderer_;
   //std::vector<std::pair<std::shared_ptr<void>, SDL_Rect>> elements_;
   std::vector<std::pair<std::shared_ptr<void>, pos>> elements_{};
+  config config_;
 };
 
 }  // match3

@@ -19,11 +19,5 @@ void Model::process_click_event(const touchgfx::ClickEvent& event)
 void Model::tick()
 {
     using namespace match3;
-    static int counter{0};
-    if(0 == counter % 10)
-    {
-        m_game.player_.process_event(time_tick{});
-    }
-    //m_game.player_.process_event(time_tick{});
-    counter++;
+    m_game.player_.process_event(time_tick{});
 }

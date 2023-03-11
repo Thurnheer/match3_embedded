@@ -10,7 +10,7 @@
 namespace match3 {
 
 struct time_tick {
-  static constexpr auto id = __COUNTER__;
+  static constexpr auto id = __COUNTER__ + 10;
 };
 
 }  // match3

@@ -32,6 +32,10 @@ public:
     {
         container1.remove(img);
     }
+    inline void redraw()
+    {
+        container1.invalidate();
+    }
 protected:
     FrontendApplication& application() {
         return *static_cast<FrontendApplication*>(touchgfx::Application::getInstance());
@@ -42,13 +46,6 @@ protected:
      */
     touchgfx::Box __background;
     touchgfx::ClickListener< touchgfx::Container > container1;
-    touchgfx::Image image1;
-    touchgfx::Draggable< touchgfx::ClickListener< touchgfx::Image > > image6;
-    touchgfx::Draggable< touchgfx::ClickListener< touchgfx::Image > > image5;
-    touchgfx::Draggable< touchgfx::ClickListener< touchgfx::Image > > image4;
-    touchgfx::Draggable< touchgfx::ClickListener< touchgfx::Image > > image3;
-    touchgfx::Draggable< touchgfx::ClickListener< touchgfx::Image > > image2;
-    touchgfx::Image image12;
 
 private:
 

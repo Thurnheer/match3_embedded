@@ -251,7 +251,9 @@ class board {
     grids[static_cast<size_t>(position)] = value;
   }
 
-  auto operator[](const int position) const { return grids[static_cast<size_t>(position)]; }
+  auto operator[](const int position) const {
+    return grids[static_cast<size_t>(position)];
+  }
 
  private:
   std::vector<color_t> grids;

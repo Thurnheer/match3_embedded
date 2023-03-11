@@ -13,10 +13,10 @@ public:
     virtual void setupScreen();
     virtual void tearDownScreen();
 
-    void click_handler(const Image& img, const ClickEvent& evt);
+    void click_handler(const Container& img, const ClickEvent& evt);
 
 protected:
-    Callback<Screen1View, const Image&, const ClickEvent&> img_clicked_callback;
+    Callback<Screen1View, const Container&, const ClickEvent&> clicked_callback_;
 };
 
 //using view = Screen1View;

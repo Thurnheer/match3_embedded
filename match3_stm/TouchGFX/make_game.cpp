@@ -33,30 +33,28 @@ auto configuration = []() {
              .win_width = 272,
              .win_height = 480,
              .board_width = 6,
-             .board_height = 9,
+             .board_height = 8,
              .board_colors = 5,
              .max_moves = 10}
     )
 
   , di::bind<board>()(
     std::vector{
-      3,5,1,4,3,2,2,
-      1,1,4,2,5,1,3,
-      5,3,5,4,5,3,2,
-      4,4,2,1,3,4,5,
-      5,1,1,2,4,5,1,
-      5,2,3,5,4,2,1,
-      1,5,5,1,5,5,4,
-      2,3,3,1,3,3,4,
-      3,2,2,5,4,4,1,
-      1,2,3,4,1,3,4
+      3,5,1,4,3,2,
+      1,1,4,2,5,1,
+      5,3,5,4,5,3,
+      4,4,2,1,3,4,
+      5,1,1,2,4,5,
+      5,2,3,5,4,2,
+      1,5,5,1,5,5,
+      2,3,3,1,3,3
       }
 
       , config{.win_title = "match3",
-             .win_width = 320,
+             .win_width = 272,
              .win_height = 480,
-             .board_width = 7,
-             .board_height = 10,
+             .board_width = 6,
+             .board_height = 8,
              .board_colors = 5,
              .max_moves = 10}
 
@@ -67,7 +65,7 @@ auto configuration = []() {
       std::mt19937 gen(rd());
       std::uniform_int_distribution<int> dis(begin, end);
       return dis(gen);*/
-        return rand();
+        return (rand() % end) + begin;
     })
   );
   // clang-format on
