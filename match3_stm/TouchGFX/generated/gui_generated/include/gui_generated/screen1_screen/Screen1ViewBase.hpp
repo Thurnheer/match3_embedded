@@ -20,17 +20,17 @@ public:
     virtual ~Screen1ViewBase();
     virtual void setupScreen();
 
-    inline void add_image(Image& img)
+    inline void add_drawable(Drawable& d)
     {
-        container1.add(img);
+        container1.add(d);
     }
     inline void remove_all()
     {
         container1.removeAll();
     }
-    inline void remove(Image& img)
+    inline void remove_drawable(Drawable& d)
     {
-        container1.remove(img);
+        container1.remove(d);
     }
     inline void redraw()
     {

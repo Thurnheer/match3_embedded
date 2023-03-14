@@ -12,6 +12,10 @@ enum LANGUAGES
 
 enum TEXTS
 {
+    T_RESOURCEID2,
+    T_RESOURCEID1,
+    T_POINTS,
+    T_MOVES,
     NUMBER_OF_TEXT_KEYS
 };
 

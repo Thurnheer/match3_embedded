@@ -9,8 +9,11 @@
 
 #include "libview/icanvas.hpp"
 #include <touchgfx/widgets/Image.hpp>
+#include <touchgfx/widgets/TextAreaWithWildcard.hpp>
 #include <mvp/MVPApplication.hpp>
 #include <gui_generated/screen1_screen/Screen1ViewBase.hpp>
+#include <texts/TextKeysAndLanguages.hpp>
+#include <touchgfx/Color.hpp>
 
 namespace match3 {
 
@@ -32,21 +35,55 @@ class touchgfx_canvas : public icanvas {
                       elements_.end());
     }
     int img_nr = *(std::static_pointer_cast<BitmapId>(texture).get());
-    auto img = std::shared_ptr<touchgfx::Image>(new Image, [](void* ptr){
-        if(auto screen = touchgfx::Application::getCurrentScreen())
-        {
-            auto img = reinterpret_cast<Image*>(ptr);
-            static_cast<Screen1ViewBase*>(screen)->remove(*img);
-            delete img;
-        }
-        });
-    
-    img->setBitmap(touchgfx::Bitmap(img_nr-1));
-    img->setXY(x, y);
-    elements_.push_back(std::make_pair(img, pos{x, y}));
-    if(auto screen = touchgfx::Application::getCurrentScreen())
+    auto drawable = std::shared_ptr<Drawable>();
+    if(img_nr-1 <= config_.board_colors)
     {
-        static_cast<Screen1ViewBase*>(screen)->add_image(*img);
+        auto img = std::shared_ptr<Image>(new Image, [](void* ptr){
+            if(auto screen = Application::getCurrentScreen())
+            {
+                auto img = reinterpret_cast<Image*>(ptr);
+                static_cast<Screen1ViewBase*>(screen)->remove_drawable(*img);
+                delete img;
+            }
+            });
+        
+        img->setBitmap(Bitmap(img_nr-1));
+        img->setXY(x, y);
+        drawable = img;
+    }
+    else
+    {
+        auto text = std::shared_ptr<TextAreaWithOneWildcard>(new TextAreaWithOneWildcard, [](void* ptr){
+            if(auto screen = Application::getCurrentScreen())
+            {
+                auto text = reinterpret_cast<TextAreaWithOneWildcard*>(ptr);
+                static_cast<Screen1ViewBase*>(screen)->remove_drawable(*text);
+                delete text;
+            }
+            });
+            if(img_nr == 10)
+            {
+                text->setWildcard(textAreaPoints);
+                text->resizeToCurrentText();
+                text->setTypedText(TypedText(T_POINTS));
+                text->setXY(x, y);  
+            }
+            else
+            {
+                text->setWildcard(textAreaMoves);
+                text->setTypedText(TypedText(T_MOVES));
+                text->setXY(x-50, y);  
+            }//touchgfx::TypedText(T___SINGLEUSE_EGE5)
+            //text->setWidthHeight(20,14);
+            text->resizeToCurrentText();
+            text->setLinespacing(0);
+            text->setColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
+            drawable = text;
+    }
+    elements_.emplace_back(std::make_pair(drawable, pos{x, y}));
+    if(auto screen = Application::getCurrentScreen())
+    {
+        static_cast<Screen1ViewBase*>(screen)->add_drawable(*drawable);
     }
   }
 
@@ -59,7 +96,16 @@ class touchgfx_canvas : public icanvas {
   std::shared_ptr<void> create_text(const std::string& str,
                                     const std::string& font_file,
                                     int font_size) const override {
-    return std::shared_ptr<void>();
+    if(str.rfind("points", 0) == 0)
+    {
+        Unicode::strncpy(textAreaPoints, str.data(), str.size() + 1);
+        return std::make_shared<int>(10);
+    }
+    else
+    {
+        Unicode::strncpy(textAreaMoves, str.data(), str.size() + 1);
+        return std::make_shared<int>(11);
+    }
   }
 
   void render() override {
@@ -82,6 +128,9 @@ class touchgfx_canvas : public icanvas {
   //std::vector<std::pair<std::shared_ptr<void>, SDL_Rect>> elements_;
   std::vector<std::pair<std::shared_ptr<void>, pos>> elements_{};
   config config_;
+  static const auto TEXT_SIZE = 20u;
+  mutable touchgfx::Unicode::UnicodeChar textAreaPoints[TEXT_SIZE];
+  mutable touchgfx::Unicode::UnicodeChar textAreaMoves[TEXT_SIZE];
 };
 
 }  // match3

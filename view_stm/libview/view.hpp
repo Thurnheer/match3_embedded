@@ -52,8 +52,8 @@ class view {
   }
 
   void set_text(const std::string& text, int x, int y, int font_size = 14) {
-    //canvas_.draw(canvas_.create_text(text, "data/fonts/font.ttf", font_size), x,
-                 //y);
+    canvas_.draw(canvas_.create_text(text, "data/fonts/font.ttf", font_size), x,
+                 y);
   }
 
   void update() { canvas_.render(); }
