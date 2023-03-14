@@ -67,17 +67,24 @@ class touchgfx_canvas : public icanvas {
                 text->resizeToCurrentText();
                 text->setTypedText(TypedText(T_POINTS));
                 text->setXY(x, y);  
+                text->setColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
             }
-            else
+            else if(img_nr == 11)
             {
                 text->setWildcard(textAreaMoves);
                 text->setTypedText(TypedText(T_MOVES));
                 text->setXY(x-50, y);  
-            }//touchgfx::TypedText(T___SINGLEUSE_EGE5)
-            //text->setWidthHeight(20,14);
+                text->setColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
+            }
+            else
+            {
+                text->setWildcard(textAreaGameOver);
+                text->setTypedText(TypedText(T_MOVES));
+                text->setXY(x+100, y);  
+                text->setColor(touchgfx::Color::getColorFromRGB(255, 0, 0));
+            }
             text->resizeToCurrentText();
             text->setLinespacing(0);
-            text->setColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
             drawable = text;
     }
     elements_.emplace_back(std::make_pair(drawable, pos{x, y}));
@@ -101,10 +108,15 @@ class touchgfx_canvas : public icanvas {
         Unicode::strncpy(textAreaPoints, str.data(), str.size() + 1);
         return std::make_shared<int>(10);
     }
-    else
+    else if(str.rfind("moves", 0) == 0)
     {
         Unicode::strncpy(textAreaMoves, str.data(), str.size() + 1);
         return std::make_shared<int>(11);
+    }
+    else
+    {
+        Unicode::strncpy(textAreaGameOver, str.data(), str.size() + 1);
+        return std::make_shared<int>(12);
     }
   }
 
@@ -131,6 +143,7 @@ class touchgfx_canvas : public icanvas {
   static const auto TEXT_SIZE = 20u;
   mutable touchgfx::Unicode::UnicodeChar textAreaPoints[TEXT_SIZE];
   mutable touchgfx::Unicode::UnicodeChar textAreaMoves[TEXT_SIZE];
+  mutable touchgfx::Unicode::UnicodeChar textAreaGameOver[TEXT_SIZE];
 };
 
 }  // match3
