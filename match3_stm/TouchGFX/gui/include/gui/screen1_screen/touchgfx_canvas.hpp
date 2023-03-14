@@ -65,26 +65,28 @@ class touchgfx_canvas : public icanvas {
             {
                 text->setWildcard(textAreaPoints);
                 text->resizeToCurrentText();
-                text->setTypedText(TypedText(T_POINTS));
+                text->setTypedText(TypedText(T_DEFAULT_FONT));
                 text->setXY(x, y);  
                 text->setColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
+                text->setLinespacing(0);
             }
             else if(img_nr == 11)
             {
                 text->setWildcard(textAreaMoves);
-                text->setTypedText(TypedText(T_MOVES));
+                text->setTypedText(TypedText(T_DEFAULT_FONT));
                 text->setXY(x-50, y);  
                 text->setColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
+                text->setLinespacing(0);
             }
             else
             {
                 text->setWildcard(textAreaGameOver);
-                text->setTypedText(TypedText(T_MOVES));
-                text->setXY(x+100, y);  
+                text->setTypedText(TypedText(T_BIG_FONT));
+                text->setXY(x+50, y);  
                 text->setColor(touchgfx::Color::getColorFromRGB(255, 0, 0));
+                text->setLinespacing(1);
             }
             text->resizeToCurrentText();
-            text->setLinespacing(0);
             drawable = text;
     }
     elements_.emplace_back(std::make_pair(drawable, pos{x, y}));

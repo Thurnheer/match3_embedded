@@ -14,8 +14,8 @@ enum TEXTS
 {
     T_RESOURCEID2,
     T_RESOURCEID1,
-    T_POINTS,
-    T_MOVES,
+    T_DEFAULT_FONT,
+    T_BIG_FONT,
     NUMBER_OF_TEXT_KEYS
 };
 

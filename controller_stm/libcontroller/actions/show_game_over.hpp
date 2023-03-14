@@ -15,7 +15,7 @@ namespace match3 {
 const auto show_game_over = [](view& v, ianimations& a) {
   using namespace std::chrono_literals;
   a.queue_animation(
-      [&v] { v.set_text("GAME OVER", 20, 230, 48 /*font size*/); }, 200ms);
+      [&v] { v.set_text("GAME\nOVER", 20, 230, 48 /*font size*/); }, 200ms);
 };
 
 }  // match3
