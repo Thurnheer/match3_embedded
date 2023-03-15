@@ -12,7 +12,5 @@ function(setBuildType)
     # Modify compile flags to change optimization level from O3 to O2
     string(REGEX REPLACE "([\\/\\-]O)3" "\\12" CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
     string(REGEX REPLACE "([\\/\\-]O)3" "\\12" CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE}")
-    # string(REGEX REPLACE "([\\/\\-]O)3" "\\1s" CMAKE_CXX_FLAGS_MINSIZEREL "${CMAKE_CXX_FLAGS_MINSIZEREL}")
-#    string(REGEX REPLACE "([\\/\\-]O)3" "\\1s" CMAKE_CXX_FLAGS_RELWITHDEBINFO "${CMAKE_CXX_FLAGS_RELWITHDEBINFO}")
 
 endfunction()

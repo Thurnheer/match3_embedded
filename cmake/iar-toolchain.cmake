@@ -17,4 +17,4 @@ set(CMAKE_C_COMPILER "icc${CMAKE_SYSTEM_PROCESSOR}")
 set(CMAKE_CXX_COMPILER "icc${CMAKE_SYSTEM_PROCESSOR}")
 set(CMAKE_ASM_COMPILER "iasm${CMAKE_SYSTEM_PROCESSOR}")
 
-set(LINKER_SCRIPT "${PROJECT_SOURCE_DIR}/Application\.EZ/anterior/anterior/iar_linker_script.icf")
+set(LINKER_SCRIPT "${PROJECT_SOURCE_DIR}/iar_linker_script.icf")

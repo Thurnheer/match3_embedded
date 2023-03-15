@@ -37,4 +37,4 @@ set(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE ONLY)
 
 add_definitions(-DXMC4700_F144x2048 -DXMC_ASSERT_ENABLE -DXMC4x00)
 
-set(LINKER_SCRIPT "${PROJECT_SOURCE_DIR}/Application\.EZ/anterior/anterior/gcc_linker_script.ld")
+set(LINKER_SCRIPT "${PROJECT_SOURCE_DIR}/gcc_linker_script.ld")

@@ -68,10 +68,5 @@ FetchContent_Declare(
 
 FetchContent_MakeAvailable(range_v3)
 
-
-
-# SDL only needed on desktops or web
-# TODO get SDL or check for it on host
-
 endfunction()
 

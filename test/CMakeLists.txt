@@ -55,7 +55,5 @@ if(ENABLE_TESTING)
         --out=tests.xml
     )
 
-#add_subdirectory(tests)
-
 endif()
 

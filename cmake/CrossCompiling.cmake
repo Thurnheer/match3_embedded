@@ -18,6 +18,7 @@ if(EMSCRIPTEN)
         "--preload-file ${CMAKE_BINARY_DIR}/data"
         "--use-preload-plugins"
         "--shell-file ${SHELL_FILE}"
+        "-sSINGLE_FILE"
     )
 elseif(CMAKE_CXX_COMPILER_ID MATCHES ".*Clang")
 
@@ -25,7 +26,6 @@ elseif(CMAKE_CXX_COMPILER_ID MATCHES ".*Clang")
         INTERFACE
         "--target=armv7m-none-eabi"
         "--sysroot=/usr/arm-none-eabi"
-        #"--gcc-install-dir=${CMAKE_GCC_TOOLCHAIN}"
         "--gcc-toolchain=/usr/arm-none-eabi/bin"
         "-c"
         "-MMD"
@@ -34,7 +34,6 @@ elseif(CMAKE_CXX_COMPILER_ID MATCHES ".*Clang")
         "-MT"
         "-ffunction-sections"
         "-fdata-sections"
-        #"-I/usr/arm-none-eabi/include"
         "-I/usr/arm-none-eabi/include/c++/12.2.0"
         "-I/usr/arm-none-eabi/include/c++/12.2.0/arm-none-eabi/thumb/v7e-m+fp/softfp"
         "-mfloat-abi=hard"
@@ -53,17 +52,11 @@ elseif(CMAKE_CXX_COMPILER_ID MATCHES ".*Clang")
         "--rtlib=libgcc"
         "--stdlib=libstdc++"
         "-fsized-deallocation"
-        #"$<$<CXX_COMPILER_ID:Clang>:-nodefaultlibs>"
     )
 
     target_link_options(${project_name}
         INTERFACE
         "-T${LINKER_SCRIPT}"
-        #"--target=armv7m-none-eabi"
-        #"--sysroot=/usr/arm-none-eabi"
-        #"--gcc-toolchain=${CMAKE_GCC_TOOLCHAIN}"
-        #"-L/usr/arm-none-eabi/lib/thumb/v7e-m+fp/hard /usr/lib/gcc/arm-none-eabi/12.2.0/thumb/v7e-m+fp/hard/libstdc++.a"
-        #"-L/usr/arm-none-eabi/lib/thumb/v7e-m+fp/hard /usr/lib/gcc/arm-none-eabi/12.2.0/thumb/v7e-m+fp/hard/libc.a"
         "-nostartfiles"
         "-Xlinker"
         "--gc-sections"
@@ -76,10 +69,6 @@ elseif(CMAKE_CXX_COMPILER_ID MATCHES ".*Clang")
         "-mthumb"
         "-gdwarf-2"
         "-lm"
-        #-v"
-        #"-fuse-ld=ld"
-        #"--rtlib=libgcc"
-        #"-nodefaultlibs"
     )
 elseif(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
 
@@ -128,7 +117,5 @@ elseif(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
 else()
     message(AUTHOR_WARNING "No compiler options set for '${CMAKE_CXX_COMPILER_ID}' compiler.")
 endif()
-
-  #target_compile_options(${project_name} INTERFACE ${PROJECT_WARNINGS})
 
 endfunction()

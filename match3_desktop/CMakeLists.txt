@@ -8,9 +8,6 @@ if(CMAKE_CROSSCOMPILING)
   add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
       COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_SOURCE_DIR}/data ${CMAKE_BINARY_DIR}/data
   )
-  #add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
-  #COMMAND emrun --port 8080 index.html
-  #)
 else()
   include(FindPkgConfig)
   PKG_SEARCH_MODULE(SDL2 REQUIRED sdl2)
