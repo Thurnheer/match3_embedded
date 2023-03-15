@@ -20,6 +20,7 @@
     #define DISABLE_WARNING_UNUSED_RESULT
     #define DISABLE_WARNING_UNUSED_VARIABLE
     #define DISABLE_WARNING_USELESS_CAST
+    #define DISABLE_WARNING_OLD_STYLE_CAST
 
 #elif defined(__GNUC__) || defined(__clang__)
 /* common for gcc and clang */
@@ -45,10 +46,12 @@
 #if defined(__clang__)
 /* clang only */
     #define DISABLE_WARNING_USELESS_CAST
+    #define DISABLE_WARNING_OLD_STYLE_CAST          DISABLE_WARNING(-Wold-style-cast)
 
 #elif defined(__GNUC__)
 /* gcc only */
     #define DISABLE_WARNING_USELESS_CAST            DISABLE_WARNING(-Wuseless-cast)
+    #define DISABLE_WARNING_OLD_STYLE_CAST
 
 #endif
 
@@ -71,6 +74,7 @@
     #define DISABLE_WARNING_UNUSED_RESULT
     #define DISABLE_WARNING_UNUSED_VARIABLE
     #define DISABLE_WARNING_USELESS_CAST
+    #define DISABLE_WARNING_OLD_STYLE_CAST
 
 #else
     #define DISABLE_WARNING_PUSH
@@ -90,6 +94,7 @@
     #define DISABLE_WARNING_UNUSED_RESULT
     #define DISABLE_WARNING_UNUSED_VARIABLE
     #define DISABLE_WARNING_USELESS_CAST
+    #define DISABLE_WARNING_OLD_STYLE_CAST
 
 #endif
 

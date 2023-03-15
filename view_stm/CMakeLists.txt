@@ -12,20 +12,8 @@ target_include_directories(${PROJECT_NAME}
     ${CMAKE_CURRENT_SOURCE_DIR}
 )
 
-target_include_directories(${PROJECT_NAME}
-    SYSTEM
-    INTERFACE
-    ${SDL2_INCLUDE_DIRS}
-    ${SDL2IMAGE_INCLUDE_DIRS}
-    ${SDL2TTF_INCLUDE_DIR}
-)
-
 target_link_libraries(${PROJECT_NAME}
     INTERFACE
-    #project_warnings
     project_options
-    ${SDL2_LIBRARIES}
-    ${SDL2IMAGE_LIBRARIES}
-    ${SDL2TTF_LIBRARIES}
 )
 

@@ -7,6 +7,9 @@
 //
 #pragma once
 
+#include <libcore/Warnings.hpp>
+DISABLE_WARNING_PUSH
+DISABLE_WARNING_OLD_STYLE_CAST
 #include <SDL_events.h>
 #include <boost/sml/utility/dispatch_table.hpp>
 // clang-format off
@@ -35,6 +38,7 @@
 #define EM_ELSE(...) __VA_ARGS__
 #define EM_ASM_INT_V(...) 0
 #endif
+DISABLE_WARNING_POP
 
 namespace match3 {
 
