@@ -33,7 +33,7 @@ auto configuration = []() {
              .win_width = 272,
              .win_height = 480,
              .board_width = 6,
-             .board_height = 8,
+             .board_height = 10,
              .board_colors = 5,
              .max_moves = 10}
     )
@@ -47,14 +47,16 @@ auto configuration = []() {
       5,1,1,2,4,5,
       5,2,3,5,4,2,
       1,5,5,1,5,5,
-      2,3,3,1,3,3
+      2,3,3,1,3,3,
+      3,2,2,5,4,4,
+      1,2,3,4,1,3
       }
 
       , config{.win_title = "match3",
              .win_width = 272,
              .win_height = 480,
              .board_width = 6,
-             .board_height = 8,
+             .board_height = 10,
              .board_colors = 5,
              .max_moves = 10}
 
