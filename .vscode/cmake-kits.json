@@ -1,0 +1,23 @@
+[
+  {
+    "name": "Xmc4x00",
+    "toolchainFile": "${workspaceRoot}/cmake/xmc4x00-gcc-toolchain.cmake",
+    "cmakeSettings": {
+      "ENABLE_TESTING": "FALSE"
+    }
+  },
+  {
+    "name": "Stm32",
+    "toolchainFile": "${workspaceRoot}/cmake/stm32-gcc-toolchain.cmake",
+    "cmakeSettings": {
+      "ENABLE_TESTING": "FALSE"
+    }
+  },
+  {
+    "name": "Clang",
+    "toolchainFile": "${workspaceRoot}/cmake/clang-toolchain.cmake",
+    "cmakeSettings": {
+      "ENABLE_TESTING": "FALSE"
+    }
+  }
+]

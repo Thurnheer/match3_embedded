@@ -5,18 +5,21 @@
 // (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
 //
+#include <catch2/catch.hpp>
 #include "common/logger.hpp"
 #include "common/mocks_provider.hpp"
 #include "common/utils.hpp"
-#include "config.hpp"
-#include "controller/player.hpp"
-#include "model/board.hpp"
+#include "libconfig/config.hpp"
+#include "libcontroller/player.hpp"
+#include "libmodel/board.hpp"
+#include <queue>
 
 namespace di = boost::di;
 namespace sml = boost::sml;
 
-int main() {
-  "match5 out of moves"_test = [] {
+SCENARIO("match5", "[match3]")
+{
+  GIVEN("match5 out of moves") {
     // given
     constexpr auto moves = 1;
     constexpr auto width = 7;
@@ -43,7 +46,7 @@ int main() {
     );
     // clang-format on
 
-    expect(equal<width * height>(injector.create<match3::board>(),
+    REQUIRE(equal<width * height>(injector.create<match3::board>(),
                                  injector.create<match3::board&>()));
 
     using namespace fakeit;
@@ -63,14 +66,14 @@ int main() {
     When(Method(animations, done)).AlwaysReturn(true);
 
     // when
-    auto sm = injector.create<sml::sm<match3::player, sml::logger<logger>>>();
-    expect(1 == injector.create<match3::moves&>());
+    auto sm = injector.create<sml::sm<match3::player, sml::defer_queue<std::deque>, sml::process_queue<std::queue>, sml::logger<logger>>>();
+    REQUIRE(1 == injector.create<match3::moves&>());
 
     swipe(sm, {3, 5}, {3, 6});
-    expect(0 == injector.create<match3::moves&>());
+    REQUIRE(0 == injector.create<match3::moves&>());
 
     // then
-    expect(equal<width * height>({/*0 1 2 3 4 5 6*/
+    REQUIRE(equal<width * height>({/*0 1 2 3 4 5 6*/
                                   /*0*/ 3, 42, 43, 44, 45, 46, 2,
                                   /*1*/ 1, 5,  1,  4,  3,  2,  3,
                                   /*2*/ 5, 1,  4,  2,  5,  1,  2,
@@ -82,5 +85,5 @@ int main() {
                                   /*8*/ 3, 2,  2,  5,  4,  4,  1,
                                   /*9*/ 1, 2,  3,  4,  1,  3,  4},
                                  injector.create<match3::board&>()));
-  };
+  }
 }

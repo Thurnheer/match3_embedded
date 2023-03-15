@@ -1,0 +1,72 @@
+buildType:
+      default: debug
+      choices:
+        debug:
+          short: Debug
+          long: Emit debug information
+          buildType: Debug
+        release:
+          short: Release
+          long: Optimize generated code
+          buildType: Release
+        minSizeRelease:
+          short: min Size Release
+          long: Optimize generated code for Size
+          buildType: MinSizeRel
+        relWithDebug:
+          short: Release with Debug info
+          long: Optimize generated code for Size and add debug info
+          buildType: RelWithDebInfo
+
+enableTesting:
+    default: 'yes'
+    choices:
+        'yes':
+            short: Testing enabled
+            settings:
+                ENABABLE_TESTING: TRUE
+                EXPORT_COMPILE_COMMANDS: TRUE
+        'no':
+            short: Testing disabled
+            settings:
+                ENABABLE_TESTING: FALSE
+                EXPORT_COMPILE_COMMANDS: TRUE
+
+enableDebuging:
+    default: 'yes'
+    choices:
+        'yes':
+            short: Debuging enabled
+            long: The watchdogs are disabled so it is possible to debug
+            settings:
+                DISABLE_WATCHDOGS: ON
+                EXPORT_COMPILE_COMMANDS: TRUE
+        'no':
+            short: Debuging disabled
+            long: Watchdogs are enabled
+            settings:
+                DISABLE_WATCHDOGS: OFF
+                EXPORT_COMPILE_COMMANDS: TRUE
+
+warningsAsErrors:
+    default: 'yes'
+    choices:
+        'yes':
+            short: Treat warnings as errors
+            settings:
+                WARNINGS_AS_ERRORS: TRUE
+                EXPORT_COMPILE_COMMANDS: TRUE
+        'no':
+            short: Treat warnings only as info
+            settings:
+                WARNINGS_AS_ERRORS: FALSE
+                EXPORT_COMPILE_COMMANDS: TRUE
+
+#    asan:
+#      short: Asan
+#      long: Instrument with Address Sanitizer
+#      buildType: Asan
+#    tsan:
+#      short: Tsan
+#      long: Instrument with Thread Sanitizer
+#      buildType: Tsan
