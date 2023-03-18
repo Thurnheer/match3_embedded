@@ -25,7 +25,6 @@ target_include_directories(${PROJECT_NAME}
 target_link_libraries(${PROJECT_NAME} PUBLIC
     project_options
     match3::Core
-    #project_warnings
 )
 
 target_sources(${PROJECT_NAME}
@@ -101,8 +100,6 @@ if(ENABLE_TESTING)
         --reporter=xml
         --out=tests.xml
     )
-
-#add_subdirectory(tests)
 
 endif()
 
