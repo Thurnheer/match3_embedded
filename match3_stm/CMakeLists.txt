@@ -36,7 +36,7 @@ target_link_libraries(${PROJECT_NAME}
     match3::Controller
     match3::View
     project_options
-    #project_warnings
+    project_warnings
 )
 
 endif()

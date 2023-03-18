@@ -10,20 +10,19 @@ cmake_minimum_required(VERSION 3.20)
 project(Match3)
 
 add_library(project_warnings INTERFACE)
-add_library(project_options INTERFACE)
 
-
-include(cmake/target_link_libraries_system.cmake)
-include(cmake/target_include_directories_system.cmake)
 
 include(cmake/CompilerWarnings.cmake)
 set_project_warnings(project_warnings)
 
 include(cmake/StaticAnalyzers.cmake)
+include(cmake/target_link_libraries_system.cmake)
+include(cmake/target_include_directories_system.cmake)
 
 option(ENABLE_TESTING "Enable Test Builds" OFF)
 option(EXPORT_COMPILE_COMMANDS "Enable compile commands for clang refactoring tool" OFF)
 
+add_library(project_options INTERFACE)
 
 include(cmake/Sanitizers.cmake)
 enable_sanitizers(project_options)
