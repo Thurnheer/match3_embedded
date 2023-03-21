@@ -13,9 +13,7 @@ target_include_directories(${PROJECT_NAME}
 
 target_link_libraries(${PROJECT_NAME} PUBLIC
     match3::Drivers
-    #match3::Middlewares
     project_options
-    #project_warnings
 )
 
 target_sources(${PROJECT_NAME}
