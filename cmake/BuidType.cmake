@@ -9,8 +9,4 @@ function(setBuildType)
             "RelWithDebInfo")
     endif()
 
-    # Modify compile flags to change optimization level from O3 to O2
-    string(REGEX REPLACE "([\\/\\-]O)3" "\\12" CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
-    string(REGEX REPLACE "([\\/\\-]O)3" "\\12" CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE}")
-
 endfunction()

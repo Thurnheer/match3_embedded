@@ -20,7 +20,6 @@ include(cmake/target_link_libraries_system.cmake)
 include(cmake/target_include_directories_system.cmake)
 
 option(ENABLE_TESTING "Enable Test Builds" OFF)
-option(EXPORT_COMPILE_COMMANDS "Enable compile commands for clang refactoring tool" OFF)
 
 add_library(project_options INTERFACE)
 
@@ -30,9 +29,7 @@ enable_sanitizers(project_options)
 include(cmake/BuidType.cmake)
 setBuildType()
 
-if(EXPORT_COMPILE_COMMANDS)
-    set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
-endif()
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 
 include(cmake/Dependencies.cmake)

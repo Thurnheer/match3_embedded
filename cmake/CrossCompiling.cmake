@@ -85,7 +85,7 @@ elseif(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
         "-mfloat-abi=hard"
         "-mfpu=fpv5-d16"
         "-mthumb"
-        #"$<$<CXX_COMPILER_ID:GNU>:-fno-exceptions>" TODO reenable this -> ranges v3 depends on it
+        #"$<$<COMPILE_LANGUAGE:CXX>:-fno-exceptions>" TODO reenable this -> ranges v3 depends on it
         "$<$<COMPILE_LANGUAGE:CXX>:-fno-use-cxa-atexit>"
         "$<$<COMPILE_LANGUAGE:CXX>:-fcheck-new>"
         "$<$<COMPILE_LANGUAGE:CXX>:-fno-rtti>"
