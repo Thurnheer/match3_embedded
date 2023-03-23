@@ -39,18 +39,19 @@
   </tr>
   <tr>
     <td>Download</td>
-    <td colspan="2"><code>git clone --recursive https://github.com/modern-cpp-examples/match3.git</code></td>
+    <td colspan="3"><code>git clone --recursive https://github.com/modern-cpp-examples/match3.git</code></td>
   </tr>
   <tr>
     <td>Compile</td>
-    <td><code>mkdir build &amp;&amp; cmake .. &amp;&amp; make app</code></td>
-    <td><code>mkdir build &amp;&amp; cmake -DCMAKE_CXX_COMPILER=em++ .. &amp;&amp; make web</code></td>
+    <td><code>cmake -B build -G Ninja &amp;&amp; ninja -C build</code></td>
+    <td><code>cmake -B build -G Ninja -DCMAKE_TOOLCHAIN_FILE=cmake/emscripten-toolchain.cmake &amp;&amp; ninja -C build</code></td>
     <td><code>cmake -B build_stm -G Ninja -DCMAKE_TOOLCHAIN_FILE=cmake/stm32-gcc-toolchain.cmake &amp;&amp; ninja -C build_stm</code></td>
   </tr>
   <tr>
     <td>Run</td>
     <td><code>./match3</code></td>
     <td><code>$browser index.html</code></td>
+    <td></td>
   </tr>
 </table>
 
