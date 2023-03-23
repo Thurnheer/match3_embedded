@@ -7,7 +7,6 @@ add_library(match3::${PROJECT_NAME} ALIAS ${PROJECT_NAME})
 
 set(LIB_PATH "${CMAKE_CURRENT_SOURCE_DIR}/ST/touchgfx/lib/core/cortex_m7/gcc")
 set(float-abi-hard "${LIB_PATH}/libtouchgfx-float-abi-hard.a")
-#set(touchgfx "${LIB_PATH}/libtouchgfx.a")
 
 message("${CMAKE_CURRENT_SOURCE_DIR}/${LIB_PATH}")
 target_include_directories(${PROJECT_NAME}
@@ -23,8 +22,6 @@ target_link_libraries(${PROJECT_NAME} PUBLIC
     match3::Drivers
     project_options
     ${float-abi-hard}
-    #${touchgfx}
-    #project_warnings
 )
 
 target_sources(${PROJECT_NAME}

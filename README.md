@@ -35,6 +35,7 @@
     <td></td>
     <td>Desktop</td>
     <td>Web</td>
+    <td>stm32</td>
   </tr>
   <tr>
     <td>Download</td>
@@ -44,6 +45,7 @@
     <td>Compile</td>
     <td><code>mkdir build &amp;&amp; cmake .. &amp;&amp; make app</code></td>
     <td><code>mkdir build &amp;&amp; cmake -DCMAKE_CXX_COMPILER=em++ .. &amp;&amp; make web</code></td>
+    <td><code>cmake -B build_stm -G Ninja -DCMAKE_TOOLCHAIN_FILE=cmake/stm32-gcc-toolchain.cmake &amp;&amp; ninja -C build_stm</code></td>
   </tr>
   <tr>
     <td>Run</td>
