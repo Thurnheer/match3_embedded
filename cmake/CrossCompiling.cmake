@@ -24,7 +24,7 @@ elseif(CMAKE_CXX_COMPILER_ID MATCHES ".*Clang")
 
     target_compile_options(${project_name}
         INTERFACE
-        "--target=armv7m-none-eabi"
+        "--target=armv-none-eabi"
         "--sysroot=/usr/arm-none-eabi"
         "--gcc-toolchain=/usr/arm-none-eabi/bin"
         "-c"
@@ -32,6 +32,9 @@ elseif(CMAKE_CXX_COMPILER_ID MATCHES ".*Clang")
         "-MP"
         "-MF"
         "-MT"
+        "-mcpu=cortex-m7"
+        "-mfloat-abi=hard"
+        "-mfpu=fpv5-d16"
         "-ffunction-sections"
         "-fdata-sections"
         "-I/usr/arm-none-eabi/include/c++/12.2.0"
