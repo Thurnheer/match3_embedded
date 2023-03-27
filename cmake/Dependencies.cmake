@@ -33,6 +33,10 @@ if(ENABLE_TESTING)
 
 endif()
 
+option(SML_BUILD_BENCHMARKS OFF)
+option(SML_BUILD_EXAMPLES OFF)
+option(SML_BUILD_TESTS OFF)
+option(SML_USE_EXCEPTIONS OFF)
 
 FetchContent_Declare(
     sml

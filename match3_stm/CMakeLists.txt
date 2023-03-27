@@ -2,8 +2,6 @@ cmake_minimum_required(VERSION 3.18.4)
 
 project(Match3_stm VERSION 1.0)
               
-if(CMAKE_CROSSCOMPILING AND CMAKE_SYSTEM_PROCESSOR MATCHES STM32H735)
-
 add_executable(${PROJECT_NAME})
 
 generate_elf(${PROJECT_NAME})
@@ -39,5 +37,4 @@ target_link_libraries(${PROJECT_NAME}
     project_warnings
 )
 
-endif()
 
